@@ -1,4 +1,4 @@
-import 'package:e_sports_gamerstalca/PantallaInicio.dart';
+import 'package:e_sports_gamerstalca/pantallaInicio.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2), () {});
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const PantallaInicio()), // Navegar a PantallaInicio
+      MaterialPageRoute(builder: (context) => const PantallaInicio()),
     );
   }
 

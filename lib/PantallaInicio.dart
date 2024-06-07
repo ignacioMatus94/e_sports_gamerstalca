@@ -1,4 +1,4 @@
-import 'package:e_sports_gamerstalca/PantallaPrincipal.dart';
+import 'package:e_sports_gamerstalca/home.dart';
 import 'package:flutter/material.dart';
 
 class PantallaInicio extends StatefulWidget {
@@ -13,11 +13,9 @@ class _PantallaInicioState extends State<PantallaInicio> {
   final TextEditingController _controladorClave = TextEditingController();
 
   void _iniciarSesion() {
-    // Lógica de inicio de sesión
-    // Aquí puedes agregar validaciones de inicio de sesión y autenticación
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const PantallaPrincipal()),
+      MaterialPageRoute(builder: (context) => const Home()),
     );
   }
 

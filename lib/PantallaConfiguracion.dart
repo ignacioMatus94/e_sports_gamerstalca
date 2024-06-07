@@ -44,7 +44,6 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
                 });
               },
             ),
-
           ],
         ),
       ),
