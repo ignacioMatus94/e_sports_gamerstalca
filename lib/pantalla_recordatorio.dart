@@ -68,6 +68,7 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
           'nombre': 'Mario',
           'imagen': 'assets/mario.png',
           'detallesTorneo': 'Ubicación: New York, Premios: \$5000',
+          'torneos': '12/08/2024',
           'torneosPasados': [
             {'fecha': '01/06/2024', 'resultado': '1er lugar'},
             {'fecha': '15/05/2024', 'resultado': '2do lugar'},
@@ -77,6 +78,7 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
           'nombre': 'Starcraft',
           'imagen': 'assets/start.png',
           'detallesTorneo': 'Ubicación: Los Angeles, Premios: \$10000',
+          'torneos': '20/08/2024',
           'torneosPasados': [
             {'fecha': '15/06/2024', 'resultado': '3er lugar'},
             {'fecha': '20/05/2024', 'resultado': '1er lugar'},
@@ -86,6 +88,7 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
           'nombre': 'Rayman',
           'imagen': 'assets/rayman.png',
           'detallesTorneo': 'Ubicación: Tokyo, Premios: \$8000',
+          'torneos': '28/08/2024',
           'torneosPasados': [
             {'fecha': '22/06/2024', 'resultado': '4to lugar'},
             {'fecha': '18/05/2024', 'resultado': '2do lugar'},
@@ -161,7 +164,7 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    juego['recomendacion'],
+                    juego['recomendacion'] ?? 'N/A',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -176,7 +179,7 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
                 ListTile(
                   leading: const Icon(Icons.calendar_today),
                   title: Text(
-                    'Próximo torneo: ${juego['torneos']}',
+                    'Próximo torneo: ${juego['torneos'] ?? 'Fecha no disponible'}',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -194,7 +197,7 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
                   child: ListTile(
                     leading: const Icon(Icons.location_on),
                     title: Text(
-                      juego['detallesTorneo'],
+                      juego['detallesTorneo'] ?? 'Detalles no disponibles',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
