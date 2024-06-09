@@ -1,0 +1,58 @@
+﻿digraph G {
+    node [shape=record];
+
+    "Home" [label="{Home|+State<Home> createState()}"];
+    "Home" -> "StatefulWidget" [label="extends"];
+
+    "_HomeState" [label="{_HomeState|-int _indiceSeleccionado|-void _alSeleccionarElemento()|+Widget build()}"];
+    "_HomeState" -> "State" [label="extends"];
+
+    "PaginaResumen" [label="{PaginaResumen|+dynamic Function(int) navegarA|-Widget _construirTarjetaResumen()|+Widget build()}"];
+    "PaginaResumen" -> "StatelessWidget" [label="extends"];
+
+    "PantallaListadoJuegos" [label="{PantallaListadoJuegos|+PantallaListadoJuegosState createState()}"];
+    "PantallaListadoJuegos" -> "StatefulWidget" [label="extends"];
+
+    "PantallaListadoJuegosState" [label="{PantallaListadoJuegosState|+List<Map<String, dynamic>> games|-Icon _getIconForGenre()|+Widget build()}"];
+    "PantallaListadoJuegosState" -> "State" [label="extends"];
+
+    "MyApp" [label="{MyApp|+Widget build()}"];
+    "MyApp" -> "StatelessWidget" [label="extends"];
+
+    "PantallaConfiguracion" [label="{PantallaConfiguracion|+PantallaConfiguracionState createState()}"];
+    "PantallaConfiguracion" -> "StatefulWidget" [label="extends"];
+
+    "PantallaConfiguracionState" [label="{PantallaConfiguracionState|-bool _notificaciones|-void _navegarAPaginaInicio()|+Widget build()}"];
+    "PantallaConfiguracionState" -> "State" [label="extends"];
+
+    "PantallaDetallesJuego" [label="{PantallaDetallesJuego|+String nombreJuego|+String genero|+String descripcion|+String imagen|+Widget build()}"];
+    "PantallaDetallesJuego" -> "StatelessWidget" [label="extends"];
+
+    "MyAppInicio" [label="{MyApp|+Widget build()}"];
+    "MyAppInicio" -> "StatelessWidget" [label="extends"];
+
+    "PantallaInicio" [label="{PantallaInicio|+State<PantallaInicio> createState()}"];
+    "PantallaInicio" -> "StatefulWidget" [label="extends"];
+
+    "_PantallaInicioState" [label="{_PantallaInicioState|-TextEditingController _controladorUsuario|-TextEditingController _controladorClave|-void _iniciarSesion()|+Widget build()}"];
+    "_PantallaInicioState" -> "State" [label="extends"];
+    "_PantallaInicioState" -> "TextEditingController" [label="uses"];
+
+    "PantallaPerfil" [label="{PantallaPerfil|+Widget build()}"];
+    "PantallaPerfil" -> "StatelessWidget" [label="extends"];
+
+    "PantallaRecordatorios" [label="{PantallaRecordatorios|+PantallaRecordatoriosState createState()}"];
+    "PantallaRecordatorios" -> "StatefulWidget" [label="extends"];
+
+    "PantallaRecordatoriosState" [label="{PantallaRecordatoriosState|+List<Map<String, dynamic>> recordatorios|-void _toggleCumplido()|-void _mostrarDetalles()|+Widget build()}"];
+    "PantallaRecordatoriosState" -> "State" [label="extends"];
+
+    "PantallaRutinasEntrenamiento" [label="{PantallaRutinasEntrenamiento|+List<Map<String, dynamic>> rutinasPorJuego|-Icon _getDifficultyIcon()|+Widget build()}"];
+    "PantallaRutinasEntrenamiento" -> "StatelessWidget" [label="extends"];
+
+    "SplashScreen" [label="{SplashScreen|+State<SplashScreen> createState()}"];
+    "SplashScreen" -> "StatefulWidget" [label="extends"];
+
+    "_SplashScreenState" [label="{_SplashScreenState|+void initState()|-dynamic _navigateToHome()|+Widget build()}"];
+    "_SplashScreenState" -> "State" [label="extends"];
+}

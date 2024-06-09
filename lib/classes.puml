@@ -1,0 +1,118 @@
+@startuml
+!define RECTANGLE class
+
+RECTANGLE "e_sports_gamerstalca::home.dart::Home" as Home {
+  +State<Home> createState()
+}
+
+RECTANGLE "e_sports_gamerstalca::home.dart::_HomeState" as _HomeState {
+  -int _indiceSeleccionado
+  -void _alSeleccionarElemento()
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::home.dart::PaginaResumen" as PaginaResumen {
+  +dynamic Function(int) navegarA
+  -Widget _construirTarjetaResumen()
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::listado_juegos.dart::PantallaListadoJuegos" as PantallaListadoJuegos {
+  +PantallaListadoJuegosState createState()
+}
+
+RECTANGLE "e_sports_gamerstalca::listado_juegos.dart::PantallaListadoJuegosState" as PantallaListadoJuegosState {
+  +List<Map<String, dynamic>> games
+  -Icon _getIconForGenre()
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::main.dart::MyApp" as MyApp {
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_configuracion.dart::PantallaConfiguracion" as PantallaConfiguracion {
+  +PantallaConfiguracionState createState()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_configuracion.dart::PantallaConfiguracionState" as PantallaConfiguracionState {
+  -bool _notificaciones
+  -void _navegarAPaginaInicio()
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_detalles_juegos.dart::PantallaDetallesJuego" as PantallaDetallesJuego {
+  +String nombreJuego
+  +String genero
+  +String descripcion
+  +String imagen
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_inicio.dart::MyApp" as MyAppInicio {
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_inicio.dart::PantallaInicio" as PantallaInicio {
+  +State<PantallaInicio> createState()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_inicio.dart::_PantallaInicioState" as _PantallaInicioState {
+  -TextEditingController _controladorUsuario
+  -TextEditingController _controladorClave
+  -void _iniciarSesion()
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_perfil.dart::PantallaPerfil" as PantallaPerfil {
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_recordatorio.dart::PantallaRecordatorios" as PantallaRecordatorios {
+  +PantallaRecordatoriosState createState()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_recordatorio.dart::PantallaRecordatoriosState" as PantallaRecordatoriosState {
+  +List<Map<String, dynamic>> recordatorios
+  -void _toggleCumplido()
+  -void _mostrarDetalles()
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_rutinas.dart::PantallaRutinasEntrenamiento" as PantallaRutinasEntrenamiento {
+  +List<Map<String, dynamic>> rutinasPorJuego
+  -Icon _getDifficultyIcon()
+  +Widget build()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_splash.dart::SplashScreen" as SplashScreen {
+  +State<SplashScreen> createState()
+}
+
+RECTANGLE "e_sports_gamerstalca::pantalla_splash.dart::_SplashScreenState" as _SplashScreenState {
+  +void initState()
+  -dynamic _navigateToHome()
+  +Widget build()
+}
+
+Home <|-- StatefulWidget
+_HomeState <|-- State
+PaginaResumen <|-- StatelessWidget
+PantallaListadoJuegos <|-- StatefulWidget
+PantallaListadoJuegosState <|-- State
+MyApp <|-- StatelessWidget
+PantallaConfiguracion <|-- StatefulWidget
+PantallaConfiguracionState <|-- State
+PantallaDetallesJuego <|-- StatelessWidget
+MyAppInicio <|-- StatelessWidget
+PantallaInicio <|-- StatefulWidget
+_PantallaInicioState <|-- State
+_PantallaInicioState o-- TextEditingController
+PantallaPerfil <|-- StatelessWidget
+PantallaRecordatorios <|-- StatefulWidget
+PantallaRecordatoriosState <|-- State
+PantallaRutinasEntrenamiento <|-- StatelessWidget
+SplashScreen <|-- StatefulWidget
+_SplashScreenState <|-- State
+
+@enduml

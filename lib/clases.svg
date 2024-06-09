@@ -1,0 +1,329 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3349pt" height="248pt" viewBox="0.00 0.00 3349.15 247.60">
+<g id="graph0" class="graph" transform="translate(1709.5847979163293,-160.34470142646668) scale(0.6299605249474367)" data-name="G">
+
+<polygon fill="white" stroke="none" points="-4,4 -4,-243.6 3345.15,-243.6 3345.15,4 -4,4" style=""/>
+<!-- Home -->
+<g id="node1" class="node" pointer-events="visible" data-name="Home">
+
+<polygon fill="none" stroke="black" points="0,-146.7 0,-182.7 54,-182.7 54,-146.7 0,-146.7" style=""/>
+<text text-anchor="middle" x="26.61" y="-163.6" font-family="Times,serif" font-size="14.00" style="">Home</text>
+<polyline fill="none" stroke="black" points="0,-152.9 53.21,-152.9" style=""/>
+</g>
+<!-- StatefulWidget -->
+<g id="node2" class="node" pointer-events="visible" data-name="StatefulWidget">
+
+<polygon fill="none" stroke="black" points="513.62,-0.5 513.62,-36.5 614.38,-36.5 614.38,-0.5 513.62,-0.5" style=""/>
+<text text-anchor="middle" x="564" y="-14.3" font-family="Times,serif" font-size="14.00" style="">StatefulWidget</text>
+</g>
+<!-- Home&#45;&gt;StatefulWidget -->
+<g id="edge1" class="edge" data-name="Home-&gt;StatefulWidget">
+
+<path fill="none" stroke="black" d="M30.35,-146.94C34.73,-129.7 44.18,-103.48 63,-89.8 132.02,-39.64 384.83,-25.13 502.71,-21.04" style=""/>
+<polygon fill="black" stroke="black" points="502.64,-24.55 512.52,-20.72 502.41,-17.55 502.64,-24.55" style=""/>
+<text text-anchor="middle" x="172.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- _HomeState -->
+<g id="node3" class="node" pointer-events="visible" data-name="_HomeState">
+
+<polygon fill="none" stroke="black" points="1101.79,-115.1 1101.79,-214.3 1296.21,-214.3 1296.21,-115.1 1101.79,-115.1" style=""/>
+<text text-anchor="middle" x="1199" y="-197.7" font-family="Times,serif" font-size="14.00" style="">_HomeState</text>
+<polyline fill="none" stroke="black" points="1101.79,-189.5 1296.21,-189.5" style=""/>
+<text text-anchor="middle" x="1199" y="-172.9" font-family="Times,serif" font-size="14.00" style="">-int _indiceSeleccionado</text>
+<polyline fill="none" stroke="black" points="1101.79,-164.7 1296.21,-164.7" style=""/>
+<text text-anchor="middle" x="1199" y="-148.1" font-family="Times,serif" font-size="14.00" style="">-void _alSeleccionarElemento()</text>
+<polyline fill="none" stroke="black" points="1101.79,-139.9 1296.21,-139.9" style=""/>
+<text text-anchor="middle" x="1199" y="-123.3" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- State -->
+<g id="node4" class="node" pointer-events="visible" data-name="State">
+
+<polygon fill="none" stroke="black" points="1692,-0.5 1692,-36.5 1746,-36.5 1746,-0.5 1692,-0.5" style=""/>
+<text text-anchor="middle" x="1719" y="-14.3" font-family="Times,serif" font-size="14.00" style="">State</text>
+</g>
+<!-- _HomeState&#45;&gt;State -->
+<g id="edge2" class="edge" data-name="_HomeState-&gt;State">
+
+<path fill="none" stroke="black" d="M1259.22,-115.29C1273.56,-105.62 1289.29,-96.42 1305,-89.8 1435.41,-34.85 1606.09,-22.81 1680.98,-20.21" style=""/>
+<polygon fill="black" stroke="black" points="1680.76,-23.71 1690.65,-19.91 1680.54,-16.72 1680.76,-23.71" style=""/>
+<text text-anchor="middle" x="1424.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PaginaResumen -->
+<g id="node5" class="node" pointer-events="visible" data-name="PaginaResumen">
+
+<polygon fill="none" stroke="black" points="2382.4,-115.1 2382.4,-214.3 2605.6,-214.3 2605.6,-115.1 2382.4,-115.1" style=""/>
+<text text-anchor="middle" x="2494" y="-197.7" font-family="Times,serif" font-size="14.00" style="">PaginaResumen</text>
+<polyline fill="none" stroke="black" points="2382.4,-189.5 2605.6,-189.5" style=""/>
+<text text-anchor="middle" x="2494" y="-172.9" font-family="Times,serif" font-size="14.00" style="">+dynamic Function(int) navegarA</text>
+<polyline fill="none" stroke="black" points="2382.4,-164.7 2605.6,-164.7" style=""/>
+<text text-anchor="middle" x="2494" y="-148.1" font-family="Times,serif" font-size="14.00" style="">-Widget _construirTarjetaResumen()</text>
+<polyline fill="none" stroke="black" points="2382.4,-139.9 2605.6,-139.9" style=""/>
+<text text-anchor="middle" x="2494" y="-123.3" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- StatelessWidget -->
+<g id="node6" class="node" pointer-events="visible" data-name="StatelessWidget">
+
+<polygon fill="none" stroke="black" points="2834.9,-0.5 2834.9,-36.5 2941.1,-36.5 2941.1,-0.5 2834.9,-0.5" style=""/>
+<text text-anchor="middle" x="2888" y="-14.3" font-family="Times,serif" font-size="14.00" style="">StatelessWidget</text>
+</g>
+<!-- PaginaResumen&#45;&gt;StatelessWidget -->
+<g id="edge3" class="edge" data-name="PaginaResumen-&gt;StatelessWidget">
+
+<path fill="none" stroke="black" d="M2567.38,-115.17C2582.76,-106.07 2599.13,-97.12 2615,-89.8 2682.87,-58.48 2766.92,-39.51 2823.7,-29.3" style=""/>
+<polygon fill="black" stroke="black" points="2824.29,-32.75 2833.54,-27.57 2823.08,-25.85 2824.29,-32.75" style=""/>
+<text text-anchor="middle" x="2730.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaListadoJuegos -->
+<g id="node7" class="node" pointer-events="visible" data-name="PantallaListadoJuegos">
+
+<polygon fill="none" stroke="black" points="72.34,-139.9 72.34,-189.5 323.66,-189.5 323.66,-139.9 72.34,-139.9" style=""/>
+<text text-anchor="middle" x="198" y="-172.9" font-family="Times,serif" font-size="14.00" style="">PantallaListadoJuegos</text>
+<polyline fill="none" stroke="black" points="72.34,-164.7 323.66,-164.7" style=""/>
+<text text-anchor="middle" x="198" y="-148.1" font-family="Times,serif" font-size="14.00" style="">+PantallaListadoJuegosState createState()</text>
+</g>
+<!-- PantallaListadoJuegos&#45;&gt;StatefulWidget -->
+<g id="edge4" class="edge" data-name="PantallaListadoJuegos-&gt;StatefulWidget">
+
+<path fill="none" stroke="black" d="M236.23,-140.01C262.7,-124.31 299.13,-104.04 333,-89.8 388.99,-66.25 455.59,-46.84 502.86,-34.43" style=""/>
+<polygon fill="black" stroke="black" points="503.58,-37.86 512.38,-31.96 501.82,-31.08 503.58,-37.86" style=""/>
+<text text-anchor="middle" x="448.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaListadoJuegosState -->
+<g id="node8" class="node" pointer-events="visible" data-name="PantallaListadoJuegosState">
+
+<polygon fill="none" stroke="black" points="1314.4,-146.7 1314.4,-182.7 1483.6,-182.7 1483.6,-146.7 1314.4,-146.7" style=""/>
+<text text-anchor="middle" x="1399" y="-160.5" font-family="Times,serif" font-size="14.00" style="">PantallaListadoJuegosState</text>
+</g>
+<!-- PantallaListadoJuegosState&#45;&gt;State -->
+<g id="edge5" class="edge" data-name="PantallaListadoJuegosState-&gt;State">
+
+<path fill="none" stroke="black" d="M1416.34,-146.84C1434.23,-130.26 1463.6,-105.25 1493,-89.8 1555.03,-57.2 1634.72,-36.83 1681,-26.87" style=""/>
+<polygon fill="black" stroke="black" points="1681.47,-30.35 1690.54,-24.87 1680.03,-23.5 1681.47,-30.35" style=""/>
+<text text-anchor="middle" x="1598.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- MyApp -->
+<g id="node9" class="node" pointer-events="visible" data-name="MyApp">
+
+<polygon fill="none" stroke="black" points="2623.65,-139.9 2623.65,-189.5 2730.35,-189.5 2730.35,-139.9 2623.65,-139.9" style=""/>
+<text text-anchor="middle" x="2677" y="-172.9" font-family="Times,serif" font-size="14.00" style="">MyApp</text>
+<polyline fill="none" stroke="black" points="2623.65,-164.7 2730.35,-164.7" style=""/>
+<text text-anchor="middle" x="2677" y="-148.1" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- MyApp&#45;&gt;StatelessWidget -->
+<g id="edge6" class="edge" data-name="MyApp-&gt;StatelessWidget">
+
+<path fill="none" stroke="black" d="M2692.71,-140.07C2704.11,-124.28 2720.7,-103.91 2739,-89.8 2765.93,-69.04 2799.99,-52.39 2828.74,-40.53" style=""/>
+<polygon fill="black" stroke="black" points="2829.7,-43.91 2837.67,-36.94 2827.08,-37.42 2829.7,-43.91" style=""/>
+<text text-anchor="middle" x="2813.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaConfiguracion -->
+<g id="node10" class="node" pointer-events="visible" data-name="PantallaConfiguracion">
+
+<polygon fill="none" stroke="black" points="341.96,-139.9 341.96,-189.5 594.04,-189.5 594.04,-139.9 341.96,-139.9" style=""/>
+<text text-anchor="middle" x="468" y="-172.9" font-family="Times,serif" font-size="14.00" style="">PantallaConfiguracion</text>
+<polyline fill="none" stroke="black" points="341.96,-164.7 594.04,-164.7" style=""/>
+<text text-anchor="middle" x="468" y="-148.1" font-family="Times,serif" font-size="14.00" style="">+PantallaConfiguracionState createState()</text>
+</g>
+<!-- PantallaConfiguracion&#45;&gt;StatefulWidget -->
+<g id="edge7" class="edge" data-name="PantallaConfiguracion-&gt;StatefulWidget">
+
+<path fill="none" stroke="black" d="M483.64,-140.21C500.88,-114.31 528.55,-72.75 546.5,-45.78" style=""/>
+<polygon fill="black" stroke="black" points="549.4,-47.75 552.03,-37.48 543.57,-43.87 549.4,-47.75" style=""/>
+<text text-anchor="middle" x="560.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaConfiguracionState -->
+<g id="node11" class="node" pointer-events="visible" data-name="PantallaConfiguracionState">
+
+<polygon fill="none" stroke="black" points="1501.73,-115.1 1501.73,-214.3 1692.27,-214.3 1692.27,-115.1 1501.73,-115.1" style=""/>
+<text text-anchor="middle" x="1597" y="-197.7" font-family="Times,serif" font-size="14.00" style="">PantallaConfiguracionState</text>
+<polyline fill="none" stroke="black" points="1501.73,-189.5 1692.27,-189.5" style=""/>
+<text text-anchor="middle" x="1597" y="-172.9" font-family="Times,serif" font-size="14.00" style="">-bool _notificaciones</text>
+<polyline fill="none" stroke="black" points="1501.73,-164.7 1692.27,-164.7" style=""/>
+<text text-anchor="middle" x="1597" y="-148.1" font-family="Times,serif" font-size="14.00" style="">-void _navegarAPaginaInicio()</text>
+<polyline fill="none" stroke="black" points="1501.73,-139.9 1692.27,-139.9" style=""/>
+<text text-anchor="middle" x="1597" y="-123.3" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- PantallaConfiguracionState&#45;&gt;State -->
+<g id="edge8" class="edge" data-name="PantallaConfiguracionState-&gt;State">
+
+<path fill="none" stroke="black" d="M1637.96,-115.28C1657.92,-91.69 1681.1,-64.29 1697.54,-44.86" style=""/>
+<polygon fill="black" stroke="black" points="1700.05,-47.32 1703.83,-37.43 1694.7,-42.8 1700.05,-47.32" style=""/>
+<text text-anchor="middle" x="1708.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaDetallesJuego -->
+<g id="node12" class="node" pointer-events="visible" data-name="PantallaDetallesJuego">
+
+<polygon fill="none" stroke="black" points="2748.19,-90.3 2748.19,-239.1 2887.81,-239.1 2887.81,-90.3 2748.19,-90.3" style=""/>
+<text text-anchor="middle" x="2818" y="-222.5" font-family="Times,serif" font-size="14.00" style="">PantallaDetallesJuego</text>
+<polyline fill="none" stroke="black" points="2748.19,-214.3 2887.81,-214.3" style=""/>
+<text text-anchor="middle" x="2818" y="-197.7" font-family="Times,serif" font-size="14.00" style="">+String nombreJuego</text>
+<polyline fill="none" stroke="black" points="2748.19,-189.5 2887.81,-189.5" style=""/>
+<text text-anchor="middle" x="2818" y="-172.9" font-family="Times,serif" font-size="14.00" style="">+String genero</text>
+<polyline fill="none" stroke="black" points="2748.19,-164.7 2887.81,-164.7" style=""/>
+<text text-anchor="middle" x="2818" y="-148.1" font-family="Times,serif" font-size="14.00" style="">+String descripcion</text>
+<polyline fill="none" stroke="black" points="2748.19,-139.9 2887.81,-139.9" style=""/>
+<text text-anchor="middle" x="2818" y="-123.3" font-family="Times,serif" font-size="14.00" style="">+String imagen</text>
+<polyline fill="none" stroke="black" points="2748.19,-115.1 2887.81,-115.1" style=""/>
+<text text-anchor="middle" x="2818" y="-98.5" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- PantallaDetallesJuego&#45;&gt;StatelessWidget -->
+<g id="edge9" class="edge" data-name="PantallaDetallesJuego-&gt;StatelessWidget">
+
+<path fill="none" stroke="black" d="M2853.62,-90.33C2861.24,-74.62 2868.83,-58.99 2874.93,-46.42" style=""/>
+<polygon fill="black" stroke="black" points="2877.99,-48.13 2879.21,-37.6 2871.7,-45.07 2877.99,-48.13" style=""/>
+<text text-anchor="middle" x="2890.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- MyAppInicio -->
+<g id="node13" class="node" pointer-events="visible" data-name="MyAppInicio">
+
+<polygon fill="none" stroke="black" points="2905.65,-139.9 2905.65,-189.5 3012.35,-189.5 3012.35,-139.9 2905.65,-139.9" style=""/>
+<text text-anchor="middle" x="2959" y="-172.9" font-family="Times,serif" font-size="14.00" style="">MyApp</text>
+<polyline fill="none" stroke="black" points="2905.65,-164.7 3012.35,-164.7" style=""/>
+<text text-anchor="middle" x="2959" y="-148.1" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- MyAppInicio&#45;&gt;StatelessWidget -->
+<g id="edge10" class="edge" data-name="MyAppInicio-&gt;StatelessWidget">
+
+<path fill="none" stroke="black" d="M2951.95,-140.33C2944.63,-117.68 2932,-82.79 2916,-55 2914.16,-51.8 2912.05,-48.58 2909.84,-45.46" style=""/>
+<polygon fill="black" stroke="black" points="2912.77,-43.53 2903.94,-37.68 2907.19,-47.76 2912.77,-43.53" style=""/>
+<text text-anchor="middle" x="2944.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaInicio -->
+<g id="node14" class="node" pointer-events="visible" data-name="PantallaInicio">
+
+<polygon fill="none" stroke="black" points="612.12,-146.7 612.12,-182.7 705.88,-182.7 705.88,-146.7 612.12,-146.7" style=""/>
+<text text-anchor="middle" x="659" y="-163.6" font-family="Times,serif" font-size="14.00" style="">PantallaInicio</text>
+<polyline fill="none" stroke="black" points="612.12,-152.9 705.88,-152.9" style=""/>
+</g>
+<!-- PantallaInicio&#45;&gt;StatefulWidget -->
+<g id="edge11" class="edge" data-name="PantallaInicio-&gt;StatefulWidget">
+
+<path fill="none" stroke="black" d="M647.92,-146.88C631.47,-121.91 600.47,-74.85 581.1,-45.45" style=""/>
+<polygon fill="black" stroke="black" points="584.27,-43.91 575.85,-37.48 578.42,-47.76 584.27,-43.91" style=""/>
+<text text-anchor="middle" x="619.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- _PantallaInicioState -->
+<g id="node15" class="node" pointer-events="visible" data-name="_PantallaInicioState">
+
+<polygon fill="none" stroke="black" points="1709.78,-102.7 1709.78,-226.7 1974.22,-226.7 1974.22,-102.7 1709.78,-102.7" style=""/>
+<text text-anchor="middle" x="1842" y="-210.1" font-family="Times,serif" font-size="14.00" style="">_PantallaInicioState</text>
+<polyline fill="none" stroke="black" points="1709.78,-201.9 1974.22,-201.9" style=""/>
+<text text-anchor="middle" x="1842" y="-185.3" font-family="Times,serif" font-size="14.00" style="">-TextEditingController _controladorUsuario</text>
+<polyline fill="none" stroke="black" points="1709.78,-177.1 1974.22,-177.1" style=""/>
+<text text-anchor="middle" x="1842" y="-160.5" font-family="Times,serif" font-size="14.00" style="">-TextEditingController _controladorClave</text>
+<polyline fill="none" stroke="black" points="1709.78,-152.3 1974.22,-152.3" style=""/>
+<text text-anchor="middle" x="1842" y="-135.7" font-family="Times,serif" font-size="14.00" style="">-void _iniciarSesion()</text>
+<polyline fill="none" stroke="black" points="1709.78,-127.5 1974.22,-127.5" style=""/>
+<text text-anchor="middle" x="1842" y="-110.9" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- _PantallaInicioState&#45;&gt;State -->
+<g id="edge12" class="edge" data-name="_PantallaInicioState-&gt;State">
+
+<path fill="none" stroke="black" d="M1790.19,-102.96C1772.8,-82.57 1754.34,-60.94 1740.58,-44.8" style=""/>
+<polygon fill="black" stroke="black" points="1743.59,-42.94 1734.44,-37.6 1738.27,-47.48 1743.59,-42.94" style=""/>
+<text text-anchor="middle" x="1784.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- TextEditingController -->
+<g id="node16" class="node" pointer-events="visible" data-name="TextEditingController">
+
+<polygon fill="none" stroke="black" points="1987.79,-0.5 1987.79,-36.5 2128.21,-36.5 2128.21,-0.5 1987.79,-0.5" style=""/>
+<text text-anchor="middle" x="2058" y="-14.3" font-family="Times,serif" font-size="14.00" style="">TextEditingController</text>
+</g>
+<!-- _PantallaInicioState&#45;&gt;TextEditingController -->
+<g id="edge13" class="edge" data-name="_PantallaInicioState-&gt;TextEditingController">
+
+<path fill="none" stroke="black" d="M1954.38,-102.83C1963.97,-98.24 1973.6,-93.83 1983,-89.8 2005.86,-80 2017.8,-88.76 2036,-71.8 2043.09,-65.19 2047.99,-55.93 2051.32,-47.04" style=""/>
+<polygon fill="black" stroke="black" points="2054.61,-48.23 2054.3,-37.64 2047.94,-46.11 2054.61,-48.23" style=""/>
+<text text-anchor="middle" x="2060.06" y="-59.2" font-family="Times,serif" font-size="14.00" style="">uses</text>
+</g>
+<!-- PantallaPerfil -->
+<g id="node17" class="node" pointer-events="visible" data-name="PantallaPerfil">
+
+<polygon fill="none" stroke="black" points="3030.65,-139.9 3030.65,-189.5 3137.35,-189.5 3137.35,-139.9 3030.65,-139.9" style=""/>
+<text text-anchor="middle" x="3084" y="-172.9" font-family="Times,serif" font-size="14.00" style="">PantallaPerfil</text>
+<polyline fill="none" stroke="black" points="3030.65,-164.7 3137.35,-164.7" style=""/>
+<text text-anchor="middle" x="3084" y="-148.1" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- PantallaPerfil&#45;&gt;StatelessWidget -->
+<g id="edge14" class="edge" data-name="PantallaPerfil-&gt;StatelessWidget">
+
+<path fill="none" stroke="black" d="M3066.43,-139.97C3054.53,-124.73 3037.93,-105.01 3021,-89.8 2998.2,-69.32 2968.36,-52.85 2942.73,-41.01" style=""/>
+<polygon fill="black" stroke="black" points="2944.34,-37.9 2933.78,-37 2941.47,-44.28 2944.34,-37.9" style=""/>
+<text text-anchor="middle" x="3016.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaRecordatorios -->
+<g id="node18" class="node" pointer-events="visible" data-name="PantallaRecordatorios">
+
+<polygon fill="none" stroke="black" points="724.13,-139.9 724.13,-189.5 973.87,-189.5 973.87,-139.9 724.13,-139.9" style=""/>
+<text text-anchor="middle" x="849" y="-172.9" font-family="Times,serif" font-size="14.00" style="">PantallaRecordatorios</text>
+<polyline fill="none" stroke="black" points="724.13,-164.7 973.87,-164.7" style=""/>
+<text text-anchor="middle" x="849" y="-148.1" font-family="Times,serif" font-size="14.00" style="">+PantallaRecordatoriosState createState()</text>
+</g>
+<!-- PantallaRecordatorios&#45;&gt;StatefulWidget -->
+<g id="edge15" class="edge" data-name="PantallaRecordatorios-&gt;StatefulWidget">
+
+<path fill="none" stroke="black" d="M807.46,-139.91C766.69,-116.96 702.44,-81.85 645,-55 635.09,-50.37 624.42,-45.56 614.18,-41.04" style=""/>
+<polygon fill="black" stroke="black" points="615.67,-37.87 605.11,-37.06 612.86,-44.28 615.67,-37.87" style=""/>
+<text text-anchor="middle" x="701.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaRecordatoriosState -->
+<g id="node19" class="node" pointer-events="visible" data-name="PantallaRecordatoriosState">
+
+<polygon fill="none" stroke="black" points="1992.19,-146.7 1992.19,-182.7 2159.81,-182.7 2159.81,-146.7 1992.19,-146.7" style=""/>
+<text text-anchor="middle" x="2076" y="-160.5" font-family="Times,serif" font-size="14.00" style="">PantallaRecordatoriosState</text>
+</g>
+<!-- PantallaRecordatoriosState&#45;&gt;State -->
+<g id="edge16" class="edge" data-name="PantallaRecordatoriosState-&gt;State">
+
+<path fill="none" stroke="black" d="M2059.34,-146.88C2041.8,-130.1 2012.66,-104.71 1983,-89.8 1907.75,-51.97 1809.88,-32.8 1756.97,-24.6" style=""/>
+<polygon fill="black" stroke="black" points="1757.67,-21.17 1747.26,-23.15 1756.63,-28.09 1757.67,-21.17" style=""/>
+<text text-anchor="middle" x="1957.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- PantallaRutinasEntrenamiento -->
+<g id="node20" class="node" pointer-events="visible" data-name="PantallaRutinasEntrenamiento">
+
+<polygon fill="none" stroke="black" points="3154.85,-146.7 3154.85,-182.7 3341.15,-182.7 3341.15,-146.7 3154.85,-146.7" style=""/>
+<text text-anchor="middle" x="3248" y="-160.5" font-family="Times,serif" font-size="14.00" style="">PantallaRutinasEntrenamiento</text>
+</g>
+<!-- PantallaRutinasEntrenamiento&#45;&gt;StatelessWidget -->
+<g id="edge17" class="edge" data-name="PantallaRutinasEntrenamiento-&gt;StatelessWidget">
+
+<path fill="none" stroke="black" d="M3228.48,-146.76C3208.78,-130.36 3176.92,-105.7 3146,-89.8 3084.04,-57.94 3006.06,-39.27 2952.14,-29.28" style=""/>
+<polygon fill="black" stroke="black" points="2952.96,-25.88 2942.5,-27.55 2951.72,-32.76 2952.96,-25.88" style=""/>
+<text text-anchor="middle" x="3120.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- SplashScreen -->
+<g id="node21" class="node" pointer-events="visible" data-name="SplashScreen">
+
+<polygon fill="none" stroke="black" points="992.29,-146.7 992.29,-182.7 1083.71,-182.7 1083.71,-146.7 992.29,-146.7" style=""/>
+<text text-anchor="middle" x="1038" y="-163.6" font-family="Times,serif" font-size="14.00" style="">SplashScreen</text>
+<polyline fill="none" stroke="black" points="992.29,-152.9 1083.71,-152.9" style=""/>
+</g>
+<!-- SplashScreen&#45;&gt;StatefulWidget -->
+<g id="edge18" class="edge" data-name="SplashScreen-&gt;StatefulWidget">
+
+<path fill="none" stroke="black" d="M1030.3,-146.91C1021.46,-129.64 1005.24,-103.39 983,-89.8 924.07,-53.78 727.11,-32.84 625.62,-24.19" style=""/>
+<polygon fill="black" stroke="black" points="626.09,-20.72 615.84,-23.37 625.51,-27.69 626.09,-20.72" style=""/>
+<text text-anchor="middle" x="957.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+<!-- _SplashScreenState -->
+<g id="node22" class="node" pointer-events="visible" data-name="_SplashScreenState">
+
+<polygon fill="none" stroke="black" points="2178.06,-115.1 2178.06,-214.3 2363.94,-214.3 2363.94,-115.1 2178.06,-115.1" style=""/>
+<text text-anchor="middle" x="2271" y="-197.7" font-family="Times,serif" font-size="14.00" style="">_SplashScreenState</text>
+<polyline fill="none" stroke="black" points="2178.06,-189.5 2363.94,-189.5" style=""/>
+<text text-anchor="middle" x="2271" y="-172.9" font-family="Times,serif" font-size="14.00" style="">+void initState()</text>
+<polyline fill="none" stroke="black" points="2178.06,-164.7 2363.94,-164.7" style=""/>
+<text text-anchor="middle" x="2271" y="-148.1" font-family="Times,serif" font-size="14.00" style="">-dynamic _navigateToHome()</text>
+<polyline fill="none" stroke="black" points="2178.06,-139.9 2363.94,-139.9" style=""/>
+<text text-anchor="middle" x="2271" y="-123.3" font-family="Times,serif" font-size="14.00" style="">+Widget build()</text>
+</g>
+<!-- _SplashScreenState&#45;&gt;State -->
+<g id="edge19" class="edge" data-name="_SplashScreenState-&gt;State">
+
+<path fill="none" stroke="black" d="M2209.62,-115.2C2196.62,-106.1 2182.68,-97.14 2169,-89.8 2130.11,-68.93 2118.98,-65 2076,-55 1962.07,-28.49 1823.16,-21.77 1757.24,-20.07" style=""/>
+<polygon fill="black" stroke="black" points="1757.4,-16.57 1747.32,-19.84 1757.24,-23.57 1757.4,-16.57" style=""/>
+<text text-anchor="middle" x="2153.38" y="-59.2" font-family="Times,serif" font-size="14.00" style="">extends</text>
+</g>
+</g>
+</svg>
