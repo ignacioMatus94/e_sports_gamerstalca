@@ -1,5 +1,5 @@
-import 'package:e_sports_gamerstalca/pantallaInicio.dart';
 import 'package:flutter/material.dart';
+import 'pantalla_inicio.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,11 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 2), () {});
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const PantallaInicio()),
-    );
+    await Future.delayed(const Duration(seconds: 3), () {});
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const PantallaInicio()),
+      );
+    }
   }
 
   @override
@@ -32,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
-              Icons.sports_esports,
+              Icons.videogame_asset,
               color: Colors.white,
               size: 100,
             ),

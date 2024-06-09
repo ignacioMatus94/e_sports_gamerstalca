@@ -1,74 +1,68 @@
-# e_sports_gamerstalca
+# E_SPORT_GAMERSTALCA
 
-A new Flutter project.
+E_SPORT_GAMERSTALCA es una aplicación de videojuegos diseñada para ayudar a los jugadores a gestionar su progreso, rutinas de entrenamiento, recordatorios y más.
 
-## Getting Started
+## Descripción
 
- ## Requerimientos Funcionales ##
+La aplicación permite a los usuarios:
 
- ## Autenticación de Usuarios
+- Ver una lista de juegos con detalles como género, descripción, lanzamiento y desarrollador.
+- Ver y gestionar sus rutinas de entrenamiento específicas para cada juego.
+- Establecer y verificar recordatorios relacionados con sus juegos favoritos.
+- Ver su perfil con información personal y progreso en los juegos.
+- Configurar notificaciones y otros ajustes de la aplicación.
 
-F1.1: La aplicación debe permitir a los usuarios iniciar sesión utilizando un nombre de usuario y una contraseña.
-F1.2: La aplicación debe permitir a los usuarios cerrar sesión.
+## Requisitos Funcionales
 
- ## Gestión de Juegos
+1. **Pantalla de Inicio de Sesión**:
+   - Permite al usuario iniciar sesión ingresando su nombre de usuario y contraseña.
+   - Navega a la pantalla principal después de iniciar sesión correctamente.
 
-F2.1: La aplicación debe mostrar una lista de juegos disponibles.
-F2.2: La aplicación debe permitir a los usuarios seleccionar un juego de la lista.
- 
- ## Perfil de Usuario
+2. **Pantalla Principal**:
+   - Muestra un resumen de las secciones disponibles: Juegos, Rutinas, Recordatorios, Perfil.
+   - Navegación a las diferentes secciones a través de tarjetas de resumen y un BottomNavigationBar.
 
-F3.1: La aplicación debe mostrar la información del perfil del usuario, incluyendo nombre, nivel y puntos.
-F3.2: La aplicación debe permitir a los usuarios editar su perfil.
+3. **Pantalla de Juegos**:
+   - Lista todos los juegos disponibles con detalles y una imagen.
+   - Permite la expansión para ver más detalles de cada juego.
 
- ## Rutinas de Entrenamiento
+4. **Pantalla de Rutinas de Entrenamiento**:
+   - Lista las rutinas de entrenamiento específicas para cada juego.
+   - Muestra el nivel de dificultad de cada rutina.
 
-F4.1: La aplicación debe mostrar una lista de rutinas de entrenamiento.
-F4.2: La aplicación debe permitir a los usuarios seleccionar y ver detalles de una rutina de entrenamiento.
+5. **Pantalla de Recordatorios**:
+   - Lista recordatorios y tareas relacionadas con los juegos.
+   - Permite marcar los recordatorios como completados y ver detalles adicionales.
 
- ## Recordatorios
+6. **Pantalla de Perfil**:
+   - Muestra información personal del usuario, incluyendo nombre de usuario y correo electrónico.
+   - Lista el progreso del usuario en diferentes juegos.
 
-F5.1: La aplicación debe mostrar una lista de recordatorios personalizados.
-F5.2: La aplicación debe permitir a los usuarios agregar, editar y eliminar recordatorios.
+7. **Pantalla de Configuración**:
+   - Permite al usuario configurar notificaciones y otros ajustes.
 
- ## Configuración
+## Requisitos No Funcionales
 
-F6.1: La aplicación debe permitir a los usuarios configurar sus preferencias, como la activación/desactivación de notificaciones.
-F6.2: La aplicación debe permitir a los usuarios volver a la pantalla de inicio desde el menú de configuración.
+1. **Interfaz de Usuario**:
+   - La aplicación debe tener una interfaz de usuario intuitiva y fácil de usar.
+   - Uso de colores y temas consistentes en toda la aplicación.
+   - Optimizada para diferentes tamaños de pantalla.
 
- ## Interfaz de Usuario
+2. **Rendimiento**:
+   - La aplicación debe ser rápida y receptiva.
+   - Minimizar el uso de recursos del dispositivo.
 
-F7.1: La aplicación debe tener una barra de navegación inferior con opciones para Juegos, Perfil, Rutinas y Recordatorios.
-F7.2: La aplicación debe tener un AppBar con título y opciones de configuración.
+3. **Seguridad**:
+   - Manejo seguro de la información del usuario.
+   - Proteger los datos de inicio de sesión.
 
- ## Requerimientos no funcionales ##
+4. **Mantenibilidad**:
+   - Código limpio y bien documentado.
+   - Uso de buenas prácticas de programación para facilitar futuras mejoras y mantenimiento.
 
- ## Usabilidad
 
-NF1.1: La interfaz de usuario debe ser intuitiva y fácil de navegar.
-NF1.2: La aplicación debe tener un diseño visualmente atractivo y consistente.
 
- ## Rendimiento
+## Instalación
 
-NF2.1: La aplicación debe cargar las listas de juegos, rutinas y recordatorios en menos de 2 segundos.
-NF2.2: La aplicación debe responder a las interacciones del usuario en menos de 100 ms.
- 
- ## Seguridad
-
-NF3.1: La aplicación debe proteger los datos de usuario mediante encriptación.
-NF3.2: La aplicación debe validar las credenciales de usuario en cada inicio de sesión.
- 
- ## Compatibilidad
-
-NF4.1: La aplicación debe ser compatible con las versiones de Android e iOS más utilizadas.
-NF4.2: La aplicación debe adaptarse a diferentes tamaños de pantalla.
- 
- ## Mantenibilidad
-
-NF5.1: El código de la aplicación debe ser modular y fácil de mantener.
-NF5.2: La aplicación debe seguir las mejores prácticas de desarrollo de software.
- 
- ## Escalabilidad
-
-NF6.1: La aplicación debe ser capaz de manejar un incremento en el número de usuarios sin degradar el rendimiento.
-NF6.2: La aplicación debe permitir la adición de nuevas funcionalidades con mínimos cambios en la arquitectura existente.
+1. **Clona el repositorio**:
+   
