@@ -65,4 +65,7 @@ La aplicación permite a los usuarios:
 ## Instalación
 
 1. **Clona el repositorio**: https://github.com/ignacioMatus94/e_sports_gamerstalca
+2. **Enlace de video de presentacion**: https://drive.google.com/file/d/1OlfspjVn3zC2at60OYcM5yNpk0bYFq3P/view?usp=sharing
+3. **Enlace de video de recursos funcionales y no funcionales**: https://drive.google.com/file/d/1Kv0bwX6pr-YNKAg98xgM3x8ofADD2UQd/view?usp=sharing
+
    
