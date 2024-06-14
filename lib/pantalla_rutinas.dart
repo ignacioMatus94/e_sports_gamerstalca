@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'drawer_clase.dart';
 
 class PantallaRutinasEntrenamiento extends StatelessWidget {
   const PantallaRutinasEntrenamiento({super.key});
@@ -54,8 +55,10 @@ class PantallaRutinasEntrenamiento extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return DrawerClase.buildScaffold(
+      context,
+      'Rutinas de Entrenamiento',
+      Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blue.shade100, Colors.blue.shade300],

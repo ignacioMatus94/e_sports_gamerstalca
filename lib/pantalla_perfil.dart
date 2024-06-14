@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'drawer_clase.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 class PantallaPerfil extends StatelessWidget {
   const PantallaPerfil({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    logger.i('build PantallaPerfil');
+    return DrawerClase.buildScaffold(
+      context,
+      'Perfil',
+      Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blue.shade100, Colors.blue.shade300],

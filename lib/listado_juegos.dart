@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'drawer_clase.dart';
 
 class PantallaListadoJuegos extends StatefulWidget {
   const PantallaListadoJuegos({super.key});
@@ -68,8 +69,10 @@ class PantallaListadoJuegosState extends State<PantallaListadoJuegos> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return DrawerClase.buildScaffold(
+      context,
+      'Listado de Juegos',
+      Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blue.shade100, Colors.blue.shade300],

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'drawer_clase.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 class PantallaRecordatorios extends StatefulWidget {
   const PantallaRecordatorios({super.key});
 
   @override
-  PantallaRecordatoriosState createState() => PantallaRecordatoriosState();
+  PantallaRecordatoriosState createState() {
+    logger.i('Crear estado PantallaRecordatorios');
+    return PantallaRecordatoriosState();
+  }
 }
 
 class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
@@ -97,6 +104,47 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
       ],
     },
   ];
+
+  PantallaRecordatoriosState() {
+    logger.i('Constructor: PantallaRecordatoriosState');
+    logger.i('mounted: $mounted');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    logger.i('initState PantallaRecordatorios');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    logger.i('didChangeDependencies PantallaRecordatorios');
+  }
+
+  @override
+  void didUpdateWidget(PantallaRecordatorios oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    logger.i('didUpdateWidget PantallaRecordatorios');
+  }
+
+  @override
+  void deactivate() {
+    logger.i('deactivate PantallaRecordatorios');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    logger.i('dispose PantallaRecordatorios');
+    super.dispose();
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    logger.i('reassemble PantallaRecordatorios');
+  }
 
   void _toggleCumplido(Map<String, dynamic> juego) {
     setState(() {
@@ -255,79 +303,72 @@ class PantallaRecordatoriosState extends State<PantallaRecordatorios> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue.shade100, Colors.blue.shade300],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: recordatorios.length,
-          itemBuilder: (context, index) {
-            final recordatorio = recordatorios[index];
-            return Card(
-              color: Colors.white,
-              shadowColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-              elevation: 4,
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      recordatorio['recordatorio'],
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    Column(
-                      children: (recordatorio['juegos'] as List<Map<String, dynamic>>)
-                          .map((juego) => Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(juego['imagen']!, width: 50, height: 50, fit: BoxFit.cover),
+    logger.i('build PantallaRecordatorios');
+    return DrawerClase.buildScaffold(
+      context,
+      'Recordatorios',
+      ListView.builder(
+        itemCount: recordatorios.length,
+        itemBuilder: (context, index) {
+          final recordatorio = recordatorios[index];
+          return Card(
+            color: Colors.white,
+            shadowColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+            elevation: 4,
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    recordatorio['recordatorio'],
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Column(
+                    children: (recordatorio['juegos'] as List<Map<String, dynamic>>)
+                        .map((juego) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.asset(juego['imagen']!, width: 50, height: 50, fit: BoxFit.cover),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      juego['nombre']!,
+                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
                                     ),
-                                    const SizedBox(width: 10),
-                                    Expanded(
-                                      child: Text(
-                                        juego['nombre']!,
-                                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    if (recordatorio['recordatorio'] == 'Entrena diariamente')
-                                      IconButton(
-                                        icon: Icon(
-                                          juego['cumplido'] ? Icons.check_circle : Icons.check_circle_outline,
-                                          color: juego['cumplido'] ? Colors.green : Colors.grey,
-                                        ),
-                                        onPressed: () {
-                                          _toggleCumplido(juego);
-                                        },
-                                      ),
+                                  ),
+                                  if (recordatorio['recordatorio'] == 'Entrena diariamente')
                                     IconButton(
-                                      icon: const Icon(Icons.info, color: Colors.blue),
+                                      icon: Icon(
+                                        juego['cumplido'] ? Icons.check_circle : Icons.check_circle_outline,
+                                        color: juego['cumplido'] ? Colors.green : Colors.grey,
+                                      ),
                                       onPressed: () {
-                                        _mostrarDetalles(context, juego, recordatorio['recordatorio']);
+                                        _toggleCumplido(juego);
                                       },
                                     ),
-                                  ],
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  ],
-                ),
+                                  IconButton(
+                                    icon: const Icon(Icons.info, color: Colors.blue),
+                                    onPressed: () {
+                                      _mostrarDetalles(context, juego, recordatorio['recordatorio']);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

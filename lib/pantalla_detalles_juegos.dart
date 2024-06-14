@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'drawer_clase.dart';
 
 class PantallaDetallesJuego extends StatelessWidget {
   final String nombreJuego;
@@ -16,14 +17,10 @@ class PantallaDetallesJuego extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(nombreJuego),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        
-      ),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Padding(
+    return DrawerClase.buildScaffold(
+      context,
+      nombreJuego,
+      Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

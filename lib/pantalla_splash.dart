@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'pantalla_inicio.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,13 +12,49 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  _SplashScreenState() {
+    logger.i('Constructor: _SplashScreenState');
+    logger.i('mounted: $mounted');
+  }
+
   @override
   void initState() {
     super.initState();
+    logger.i('initState SplashScreen');
     _navigateToHome();
   }
 
-  _navigateToHome() async {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    logger.i('didChangeDependencies SplashScreen');
+  }
+
+  @override
+  void didUpdateWidget(SplashScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    logger.i('didUpdateWidget SplashScreen');
+  }
+
+  @override
+  void deactivate() {
+    logger.i('deactivate SplashScreen');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    logger.i('dispose SplashScreen');
+    super.dispose();
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    logger.i('reassemble SplashScreen');
+  }
+
+  void _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3), () {});
     if (mounted) {
       Navigator.pushReplacement(
@@ -27,6 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    logger.i('build SplashScreen');
     return const Scaffold(
       backgroundColor: Colors.blue,
       body: Center(

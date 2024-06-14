@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  logger: ^1.1.0 # Agregar la dependencia de logger
 
 dev_dependencies:
   flutter_test:

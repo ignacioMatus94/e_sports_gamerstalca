@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'drawer_clase.dart';
 import 'listado_juegos.dart';
-import 'pantalla_configuracion.dart';
 import 'pantalla_perfil.dart';
 import 'pantalla_recordatorio.dart';
 import 'pantalla_rutinas.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,45 +16,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _indiceSeleccionado = 0;
+  int selectedIndex = 0;
 
-  void _alSeleccionarElemento(int indice) {
+  final List<Widget> pages = [
+    const PaginaResumen(),
+    const PantallaListadoJuegos(),
+    const PantallaRutinasEntrenamiento(),
+    const PantallaRecordatorios(),
+    const PantallaPerfil(),
+  ];
+
+  void onItemTapped(int index) {
     setState(() {
-      _indiceSeleccionado = indice;
+      selectedIndex = index;
     });
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> opcionesWidget = [
-      PaginaResumen(navegarA: _alSeleccionarElemento),
-      const PantallaListadoJuegos(),
-      const PantallaRutinasEntrenamiento(),
-      const PantallaRecordatorios(),
-      const PantallaPerfil(),
-    ];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'E_SPORT_GAMERSTALCA',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings, color: Colors.white),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PantallaConfiguracion()),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Container(
+    return DrawerClase.buildScaffold(
+      context,
+      'E_SPORT_GAMERSTALCA',
+      Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blue.shade100, Colors.blue.shade300],
@@ -59,79 +46,73 @@ class _HomeState extends State<Home> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: opcionesWidget.elementAt(_indiceSeleccionado),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Resumen',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.games),
-            label: 'Juegos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Rutinas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Recordatorios',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-        currentIndex: _indiceSeleccionado,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Theme.of(context).colorScheme.secondary,
-        onTap: _alSeleccionarElemento,
+        child: pages[selectedIndex],
       ),
     );
   }
 }
 
 class PaginaResumen extends StatelessWidget {
-  final Function(int) navegarA;
+  const PaginaResumen({super.key});
 
-  const PaginaResumen({super.key, required this.navegarA});
-
-  Widget _construirTarjetaResumen(BuildContext context, String titulo, String descripcion, IconData icono, int indice) {
-    return GestureDetector(
+  Widget construirTarjetaApp(BuildContext context, String titulo, IconData icono, String subtitulo) {
+    return InkWell(
       onTap: () {
-        navegarA(indice);
+        logger.i('Tapped on $titulo');
       },
       child: Card(
-        elevation: 4,
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: Container(
           height: 140,
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Icon(icono, color: Theme.of(context).colorScheme.primary, size: 60),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      titulo,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      descripcion,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            gradient: LinearGradient(
+              colors: [Colors.blue.withOpacity(0.7), Colors.purple.withOpacity(0.7)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Hero(
+                  tag: titulo,
+                  child: Icon(icono, color: Colors.white, size: 60),
                 ),
-              ),
-              const Icon(Icons.arrow_forward, size: 30),
-            ],
+                const SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          titulo,
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Flexible(
+                        child: Text(
+                          subtitulo,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                color: Colors.white70,
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -140,14 +121,28 @@ class PaginaResumen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(16.0),
-      children: [
-        _construirTarjetaResumen(context, 'Principal', 'Detalles de los juegos disponibles', Icons.games, 1),
-        _construirTarjetaResumen(context, 'Rutinas', 'Mejora tu precisión y tiempo de reacción', Icons.fitness_center, 2),
-        _construirTarjetaResumen(context, 'Recordatorios', 'No olvides tus tareas importantes', Icons.notifications, 3),
-        _construirTarjetaResumen(context, 'Perfil', 'Información de tu perfil y estadísticas', Icons.person, 4),
-      ],
+    logger.i('build PaginaResumen');
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          GridView.count(
+            crossAxisCount: 1,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.all(16.0),
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            children: <Widget>[
+              construirTarjetaApp(context, 'Principal', Icons.games, 'Detalles de los juegos disponibles'),
+              construirTarjetaApp(context, 'Rutinas', Icons.fitness_center, 'Mejora tu precisión y tiempo de reacción'),
+              construirTarjetaApp(context, 'Recordatorios', Icons.notifications, 'No olvides tus tareas importantes'),
+              construirTarjetaApp(context, 'Perfil', Icons.person, 'Información de tu perfil y estadísticas'),
+              construirTarjetaApp(context, 'Configuración', Icons.settings, 'Ajusta la app'),
+            ],
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 }

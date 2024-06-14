@@ -1,41 +1,65 @@
 import 'package:flutter/material.dart';
-import 'pantalla_inicio.dart';
-import 'home.dart';
+import 'drawer_clase.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 class PantallaConfiguracion extends StatefulWidget {
   const PantallaConfiguracion({super.key});
 
   @override
-  PantallaConfiguracionState createState() => PantallaConfiguracionState();
+  PantallaConfiguracionState createState() {
+    logger.i('Crear estado PantallaConfiguracion');
+    return PantallaConfiguracionState();
+  }
 }
 
 class PantallaConfiguracionState extends State<PantallaConfiguracion> {
-  bool _notificaciones = true;
+  bool notificaciones = true;
 
-  void _navegarAPaginaInicio() {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const PantallaInicio()),
-      (Route<dynamic> route) => false,
-    );
+  @override
+  void initState() {
+    super.initState();
+    logger.i('initState PantallaConfiguracion');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    logger.i('didChangeDependencies PantallaConfiguracion');
+  }
+
+  @override
+  void didUpdateWidget(PantallaConfiguracion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    logger.i('didUpdateWidget PantallaConfiguracion');
+  }
+
+  @override
+  void deactivate() {
+    logger.i('deactivate PantallaConfiguracion');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    logger.i('dispose PantallaConfiguracion');
+    super.dispose();
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    logger.i('reassemble PantallaConfiguracion');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Configuración',
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-      body: Container(
+    logger.i('build PantallaConfiguracion');
+    return DrawerClase.buildScaffold(
+      context,
+      'Configuración',
+      Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.blue.shade100, Colors.blue.shade300],
@@ -64,10 +88,10 @@ class PantallaConfiguracionState extends State<PantallaConfiguracion> {
                     ),
                     SwitchListTile(
                       title: const Text('Activar Notificaciones'),
-                      value: _notificaciones,
+                      value: notificaciones,
                       onChanged: (bool value) {
                         setState(() {
-                          _notificaciones = value;
+                          notificaciones = value;
                         });
                       },
                     ),
@@ -77,30 +101,6 @@ class PantallaConfiguracionState extends State<PantallaConfiguracion> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.login),
-            label: 'Inicio',
-          ),
-        ],
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Theme.of(context).colorScheme.secondary,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const Home()),
-            );
-          } else if (index == 1) {
-            _navegarAPaginaInicio();
-          }
-        },
       ),
     );
   }

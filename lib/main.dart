@@ -1,5 +1,8 @@
-import 'package:e_sports_gamerstalca/pantalla_splash.dart';
 import 'package:flutter/material.dart';
+import 'home.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'E-Sports Gamerstalca',
+      title: 'E_SPORT_GAMERSTALCA',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const Home(),
     );
   }
 }

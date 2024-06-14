@@ -1,25 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'package:logger/logger.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'E_SPORT_GAMERSTALCA',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const PantallaInicio(),
-    );
-  }
-}
+final logger = Logger();
 
 class PantallaInicio extends StatefulWidget {
   const PantallaInicio({super.key});
@@ -42,6 +25,9 @@ class _PantallaInicioState extends State<PantallaInicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Iniciar Sesión'),
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -65,7 +51,7 @@ class _PantallaInicioState extends State<PantallaInicio> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Image.asset('assets/logo.png', height: 100), // Logo
+                Image.asset('assets/logo.png', height: 100),
                 const SizedBox(height: 20),
                 TextField(
                   controller: _controladorUsuario,
