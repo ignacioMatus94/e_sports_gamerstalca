@@ -1,8 +1,7 @@
 name: e_sports_gamerstalca
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
+publish_to: 'none' 
 version: 1.0.0+1
 
 environment:
@@ -20,8 +19,8 @@ dependencies:
   synchronized: ^3.0.0+1
   provider: ^6.1.2
   sqlite3_flutter_libs: ^0.5.0
-  shared_preferences: ^2.0.11  # Asegúrate de tener esta línea
-
+  shared_preferences: ^2.0.11  
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:

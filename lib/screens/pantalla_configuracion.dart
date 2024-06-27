@@ -1,34 +1,25 @@
 import 'package:flutter/material.dart';
-import '../models/perfil.dart';
-import '../models/juego.dart';
-import '../widgets/drawer_clase.dart';
+import '../models/perfil.dart'; // Asegúrate de que esta línea está incluida para importar la clase Perfil
 
 class PantallaConfiguracion extends StatelessWidget {
   final Perfil perfil;
-  final List<Perfil> perfiles;
-  final List<Juego> juegos;
 
-  const PantallaConfiguracion({
-    super.key,
-    required this.perfil,
-    required this.perfiles,
-    required this.juegos,
-  });
+  const PantallaConfiguracion({super.key, required this.perfil});
 
   @override
   Widget build(BuildContext context) {
-    return DrawerClase.buildScaffold(
-      context: context,
-      title: 'Configuración',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Configuración'),
+      ),
       body: Center(
-        child: Text(
-          'Pantalla de Configuración',
-          style: TextStyle(fontSize: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Otros botones o configuraciones pueden ir aquí
+          ],
         ),
       ),
-      perfil: perfil,
-      perfiles: perfiles,
-      juegos: juegos,
     );
   }
 }

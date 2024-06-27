@@ -1,5 +1,7 @@
-class Rutina {
-  final int id;
+import 'package:equatable/equatable.dart';
+
+class Rutina extends Equatable {
+  final int? id;
   final String nombre;
   final String descripcion;
   final String objetivo;
@@ -8,7 +10,7 @@ class Rutina {
   final String dificultad;
 
   Rutina({
-    required this.id,
+    this.id,
     required this.nombre,
     required this.descripcion,
     required this.objetivo,
@@ -16,18 +18,6 @@ class Rutina {
     required this.resultadosEsperados,
     required this.dificultad,
   });
-
-  factory Rutina.fromMap(Map<String, dynamic> map) {
-    return Rutina(
-      id: map['id'],
-      nombre: map['nombre'],
-      descripcion: map['descripcion'],
-      objetivo: map['objetivo'],
-      pasos: map['pasos'],
-      resultadosEsperados: map['resultadosEsperados'],
-      dificultad: map['dificultad'],
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -39,5 +29,25 @@ class Rutina {
       'resultadosEsperados': resultadosEsperados,
       'dificultad': dificultad,
     };
+  }
+
+  static Rutina fromMap(Map<String, dynamic> map) {
+    return Rutina(
+      id: map['id'],
+      nombre: map['nombre'],
+      descripcion: map['descripcion'],
+      objetivo: map['objetivo'],
+      pasos: map['pasos'],
+      resultadosEsperados: map['resultadosEsperados'],
+      dificultad: map['dificultad'],
+    );
+  }
+
+  @override
+  List<Object?> get props => [id, nombre, descripcion, objetivo, pasos, resultadosEsperados, dificultad];
+
+  @override
+  String toString() {
+    return 'Rutina{id: $id, nombre: $nombre, descripcion: $descripcion, objetivo: $objetivo, pasos: $pasos, resultadosEsperados: $resultadosEsperados, dificultad: $dificultad}';
   }
 }

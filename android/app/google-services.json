@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "888833458399",
+    "project_id": "e-sports-gamerstalca",
+    "storage_bucket": "e-sports-gamerstalca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888833458399:android:a7e9bfa57751a0e4dda96a",
+        "android_client_info": {
+          "package_name": "com.example.e_sports_gamerstalca"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcw0PEdX6zYpq8Y9z19VXVzod-uSvdSyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

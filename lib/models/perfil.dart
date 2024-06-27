@@ -1,39 +1,29 @@
 class Perfil {
   final int id;
-  final String nombreUsuario;
-  final String email;
+  final String nombre;
   final String avatarUrl;
-  final int nivel;
-  final int puntos;
 
   Perfil({
     required this.id,
-    required this.nombreUsuario,
-    required this.email,
+    required this.nombre,
     required this.avatarUrl,
-    required this.nivel,
-    required this.puntos,
   });
 
-  factory Perfil.fromMap(Map<String, dynamic> map) {
-    return Perfil(
-      id: map['id'],
-      nombreUsuario: map['nombreUsuario'],
-      email: map['email'],
-      avatarUrl: map['avatarUrl'],
-      nivel: map['nivel'],
-      puntos: map['puntos'],
-    );
-  }
+  String get nombreUsuario => nombre; // Agrega este getter si no existe
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'nombreUsuario': nombreUsuario,
-      'email': email,
+      'nombre': nombre,
       'avatarUrl': avatarUrl,
-      'nivel': nivel,
-      'puntos': puntos,
     };
+  }
+
+  static Perfil fromMap(Map<String, dynamic> map) {
+    return Perfil(
+      id: map['id'],
+      nombre: map['nombre'],
+      avatarUrl: map['avatarUrl'],
+    );
   }
 }

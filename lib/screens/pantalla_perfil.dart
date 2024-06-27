@@ -33,9 +33,12 @@ class PantallaPerfilState extends State<PantallaPerfil> {
   Future<Map<int, Rutina?>> _fetchRutinasSeleccionadas() async {
     final Map<int, Rutina?> rutinasSeleccionadas = {};
     for (var juego in widget.juegos) {
-      rutinasSeleccionadas[juego.id] =
-          await DatabaseService().getRutinaSeleccionada(widget.perfil.id, juego.id);
-      print('Cargada rutina seleccionada para juego ${juego.id}: ${rutinasSeleccionadas[juego.id]?.nombre}');
+      final rutinaMap = await DatabaseService().getRutinaSeleccionada(widget.perfil.id!, juego.id);
+      if (rutinaMap != null) {
+        rutinasSeleccionadas[juego.id] = Rutina.fromMap(rutinaMap);
+      } else {
+        rutinasSeleccionadas[juego.id] = null;
+      }
     }
     return rutinasSeleccionadas;
   }
@@ -99,7 +102,7 @@ class PantallaPerfilState extends State<PantallaPerfil> {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  'Perfil de ${widget.perfil.nombreUsuario}',
+                  'Perfil de ${widget.perfil.nombre}',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ],

@@ -1,56 +1,79 @@
 import 'package:flutter/material.dart';
-import '../models/juego.dart';
 import '../models/perfil.dart';
+import '../models/juego.dart';
 
-class DrawerClase {
-  static Widget buildScaffold({
+class DrawerClase extends StatelessWidget {
+  final Perfil perfil;
+  final List<Perfil> perfiles;
+  final List<Juego> juegos;
+
+  const DrawerClase({
+    super.key,
+    required this.perfil,
+    required this.perfiles,
+    required this.juegos,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            accountName: Text(perfil.nombre),
+            accountEmail: Text('user@example.com'),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: AssetImage(perfil.avatarUrl),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Inicio'),
+            onTap: () {
+              Navigator.pushNamed(context, '/home');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Perfil'),
+            onTap: () {
+              Navigator.pushNamed(context, '/perfil');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.gamepad),
+            title: Text('Juegos'),
+            onTap: () {
+              Navigator.pushNamed(context, '/juegos');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Configuración'),
+            onTap: () {
+              Navigator.pushNamed(context, '/configuracion');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Scaffold buildScaffold({
     required BuildContext context,
     required String title,
     required Widget body,
     required Perfil perfil,
     required List<Perfil> perfiles,
     required List<Juego> juegos,
-    List<Widget>? actions,
   }) {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        actions: actions,
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-              ),
-              child: const Text(
-                'E-Sports Gamerstalca',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            _buildDrawerItem(context, Icons.home, 'Home', () => Navigator.pushReplacementNamed(context, '/home')),
-            _buildDrawerItem(context, Icons.games, 'Listado de Juegos', () => Navigator.pushReplacementNamed(context, '/juegos')),
-            _buildDrawerItem(context, Icons.fitness_center, 'Seleccionar Rutina', () => Navigator.pushNamed(context, '/seleccionar_rutina')),
-            _buildDrawerItem(context, Icons.person, 'Perfil', () => Navigator.pushReplacementNamed(context, '/perfil')),
-            _buildDrawerItem(context, Icons.history, 'Historial de Avances', () => Navigator.pushNamed(context, '/historial')),
-            _buildDrawerItem(context, Icons.settings, 'Configuración', () => Navigator.pushReplacementNamed(context, '/configuracion')),
-          ],
-        ),
-      ),
+      drawer: DrawerClase(perfil: perfil, perfiles: perfiles, juegos: juegos),
       body: body,
-    );
-  }
-
-  static Widget _buildDrawerItem(BuildContext context, IconData icon, String title, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      onTap: onTap,
     );
   }
 }
