@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/juego.dart';
-import '../models/rutina.dart';
+import '../models/avance.dart';
 
 class DatabaseService {
   static final DatabaseService _instance = DatabaseService._internal();
@@ -39,7 +39,8 @@ class DatabaseService {
             pasos TEXT,
             resultadosEsperados TEXT,
             dificultad TEXT,
-            juego_id INTEGER
+            juego_id INTEGER,
+            puntuacion REAL
           )
         ''');
         await db.execute('''
@@ -48,6 +49,17 @@ class DatabaseService {
             perfil_id INTEGER,
             rutina_id INTEGER,
             juego_id INTEGER,
+            FOREIGN KEY(perfil_id) REFERENCES perfiles(id),
+            FOREIGN KEY(rutina_id) REFERENCES rutinas(id)
+          )
+        ''');
+        await db.execute('''
+          CREATE TABLE avances (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            perfil_id INTEGER,
+            rutina_id INTEGER,
+            fecha TEXT,
+            progreso INTEGER,
             FOREIGN KEY(perfil_id) REFERENCES perfiles(id),
             FOREIGN KEY(rutina_id) REFERENCES rutinas(id)
           )
@@ -86,7 +98,7 @@ class DatabaseService {
   Future<Map<String, dynamic>?> getRutinaSeleccionada(int perfilId, int juegoId) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      'SELECT r.* FROM rutinas r '
+      'SELECT r.*, r.puntuacion FROM rutinas r '
       'INNER JOIN perfil_rutinas pr ON r.id = pr.rutina_id '
       'WHERE pr.perfil_id = ? AND pr.juego_id = ?',
       [perfilId, juegoId]
@@ -107,7 +119,7 @@ class DatabaseService {
   Future<List<Map<String, dynamic>>> getRutinasSeleccionadas(int perfilId) async {
     final db = await database;
     return await db.rawQuery(
-      'SELECT pr.rutina_id, r.* FROM perfil_rutinas pr '
+      'SELECT pr.rutina_id, r.*, r.puntuacion FROM perfil_rutinas pr '
       'INNER JOIN rutinas r ON pr.rutina_id = r.id '
       'WHERE pr.perfil_id = ?',
       [perfilId]
@@ -130,5 +142,20 @@ class DatabaseService {
         });
       }
     }
+  }
+
+  // Métodos para manejar la tabla de avances
+
+  Future<void> insertAvance(Avance avance) async {
+    final db = await database;
+    await db.insert('avances', avance.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<Avance>> getAvances(int perfilId, int rutinaId) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('avances', where: 'perfil_id = ? AND rutina_id = ?', whereArgs: [perfilId, rutinaId]);
+    return List.generate(maps.length, (i) {
+      return Avance.fromMap(maps[i]);
+    });
   }
 }

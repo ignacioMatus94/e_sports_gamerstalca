@@ -32,7 +32,7 @@ class PantallaJuegos extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Error'),
-            content: Text('No se pudo abrir el enlace: $url'),
+            content: Text('No se pudo abrir el enlace: $url. $e'),
             actions: <Widget>[
               TextButton(
                 child: Text('OK'),
@@ -53,7 +53,7 @@ class PantallaJuegos extends StatelessWidget {
       context: context,
       title: 'E_SPORT_GAMERSTALCA',
       body: Container(
-        color: backgroundColor, // Usar el color de fondo definido
+        color: backgroundColor, 
         child: ListView.builder(
           itemCount: juegos.length,
           itemBuilder: (context, index) {

@@ -6,6 +6,7 @@ import 'screens/pantalla_seleccionar_rutina.dart';
 import 'screens/pantalla_juegos.dart';
 import 'screens/pantalla_configuracion.dart';
 import 'screens/splash_screen.dart';
+import 'screens/pantalla_avance.dart'; 
 import 'models/perfil.dart';
 import 'models/rutina.dart';
 import 'models/juego.dart';
@@ -13,7 +14,11 @@ import 'services/database_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DatabaseService().initializeDatabase();
+  
+  ///Persistencia de datos
+  
+  await DatabaseService().deleteDatabaseFile(); // Eliminar la base de datos existente
+  await DatabaseService().initializeDatabase(); // Inicializar la base de datos
 
   final juegos = [
     Juego(
@@ -24,7 +29,7 @@ void main() async {
       genero: 'Plataformas',
       ano: 1985,
       desarrollador: 'Nintendo',
-      link: 'https://www.nintendo.com/',
+      link: 'https://mario.nintendo.com/es/',
       puntuacion: 9.5,
       rutinas: [
         Rutina(
@@ -32,27 +37,30 @@ void main() async {
           nombre: 'Fácil',
           descripcion: 'Una rutina fácil para principiantes',
           objetivo: 'Completar el primer mundo',
-          pasos: 'Sigue los pasos del tutorial',
+          pasos: '1', 
           resultadosEsperados: 'Aprender las mecánicas básicas',
           dificultad: 'Fácil',
+          puntuacion: 6.0,
         ),
         Rutina(
           id: 2,
           nombre: 'Media',
           descripcion: 'Una rutina de dificultad media',
           objetivo: 'Completar los primeros 3 mundos',
-          pasos: 'Sigue las estrategias avanzadas',
+          pasos: '3', 
           resultadosEsperados: 'Mejorar tus habilidades',
           dificultad: 'Media',
+          puntuacion: 7.0,
         ),
         Rutina(
           id: 3,
           nombre: 'Difícil',
           descripcion: 'Una rutina difícil para expertos',
           objetivo: 'Completar el juego sin morir',
-          pasos: 'Sigue las estrategias de los expertos',
+          pasos: '5', 
           resultadosEsperados: 'Convertirte en un maestro del juego',
           dificultad: 'Difícil',
+          puntuacion: 8.0,
         ),
       ],
     ),
@@ -64,7 +72,7 @@ void main() async {
       genero: 'Plataformas',
       ano: 1995,
       desarrollador: 'Ubisoft',
-      link: 'https://www.ubisoft.com/',
+      link: 'https://www.ubisoft.com/es-es/game/rayman/origins',
       puntuacion: 9.0,
       rutinas: [
         Rutina(
@@ -72,27 +80,30 @@ void main() async {
           nombre: 'Fácil',
           descripcion: 'Una rutina fácil para principiantes',
           objetivo: 'Completar el primer mundo',
-          pasos: 'Sigue los pasos del tutorial',
+          pasos: '1',
           resultadosEsperados: 'Aprender las mecánicas básicas',
           dificultad: 'Fácil',
+          puntuacion: 6.0,
         ),
         Rutina(
           id: 5,
           nombre: 'Media',
           descripcion: 'Una rutina de dificultad media',
           objetivo: 'Completar los primeros 3 mundos',
-          pasos: 'Sigue las estrategias avanzadas',
+          pasos: '3',
           resultadosEsperados: 'Mejorar tus habilidades',
           dificultad: 'Media',
+          puntuacion: 7.0,
         ),
         Rutina(
           id: 6,
           nombre: 'Difícil',
           descripcion: 'Una rutina difícil para expertos',
           objetivo: 'Completar el juego sin morir',
-          pasos: 'Sigue las estrategias de los expertos',
+          pasos: '5',
           resultadosEsperados: 'Convertirte en un maestro del juego',
           dificultad: 'Difícil',
+          puntuacion: 8.0,
         ),
       ],
     ),
@@ -104,7 +115,7 @@ void main() async {
       genero: 'Estrategia en Tiempo Real',
       ano: 1998,
       desarrollador: 'Blizzard Entertainment',
-      link: 'https://www.blizzard.com/',
+      link: 'https://starcraft2.blizzard.com',
       puntuacion: 9.5,
       rutinas: [
         Rutina(
@@ -112,27 +123,30 @@ void main() async {
           nombre: 'Fácil',
           descripcion: 'Una rutina fácil para principiantes',
           objetivo: 'Ganar la primera campaña',
-          pasos: 'Sigue los pasos del tutorial',
+          pasos: '1',
           resultadosEsperados: 'Aprender las mecánicas básicas',
           dificultad: 'Fácil',
+          puntuacion: 6.0,
         ),
         Rutina(
           id: 8,
           nombre: 'Media',
           descripcion: 'Una rutina de dificultad media',
           objetivo: 'Ganar tres campañas',
-          pasos: 'Usa las estrategias avanzadas',
+          pasos: '3',
           resultadosEsperados: 'Mejorar tus habilidades',
           dificultad: 'Media',
+          puntuacion: 7.0,
         ),
         Rutina(
           id: 9,
           nombre: 'Difícil',
           descripcion: 'Una rutina difícil para expertos',
           objetivo: 'Ganar todas las campañas sin perder unidades clave',
-          pasos: 'Sigue las estrategias de los expertos',
+          pasos: '5',
           resultadosEsperados: 'Convertirte en un maestro del juego',
           dificultad: 'Difícil',
+          puntuacion: 8.0,
         ),
       ],
     ),
@@ -144,7 +158,7 @@ void main() async {
       genero: 'Arcade',
       ano: 1980,
       desarrollador: 'Namco',
-      link: 'https://www.bandainamcoent.com/',
+      link: 'https://pacman.com/en/',
       puntuacion: 8.5,
       rutinas: [
         Rutina(
@@ -152,27 +166,30 @@ void main() async {
           nombre: 'Fácil',
           descripcion: 'Una rutina fácil para principiantes',
           objetivo: 'Completar el primer nivel',
-          pasos: 'Sigue los pasos del tutorial',
+          pasos: '1',
           resultadosEsperados: 'Aprender las mecánicas básicas',
           dificultad: 'Fácil',
+          puntuacion: 6.5,
         ),
         Rutina(
           id: 11,
           nombre: 'Media',
           descripcion: 'Una rutina de dificultad media',
           objetivo: 'Completar los primeros 3 niveles',
-          pasos: 'Sigue las estrategias avanzadas',
+          pasos: '3',
           resultadosEsperados: 'Mejorar tus habilidades',
           dificultad: 'Media',
+          puntuacion: 7.5,
         ),
         Rutina(
           id: 12,
           nombre: 'Difícil',
           descripcion: 'Una rutina difícil para expertos',
           objetivo: 'Completar el juego sin perder vidas',
-          pasos: 'Sigue las estrategias de los expertos',
+          pasos: '5',
           resultadosEsperados: 'Convertirte en un maestro del juego',
           dificultad: 'Difícil',
+          puntuacion: 8.5,
         ),
       ],
     ),
@@ -185,6 +202,8 @@ void main() async {
   );
 
   final perfiles = [perfil];
+
+  await DatabaseService().insertarRutinasIniciales(juegos);
 
   runApp(MyApp(juegos: juegos, perfil: perfil, perfiles: perfiles));
 }
@@ -239,6 +258,25 @@ class MyApp extends StatelessWidget {
               perfil: perfil,
               juegos: juegos,
             ),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/avance') {
+          final args = settings.arguments as Map<String, dynamic>;
+          final rutina = args['rutina'] as Rutina;
+          final perfil = args['perfil'] as Perfil;
+          final perfiles = args['perfiles'] as List<Perfil>;
+          final juegos = args['juegos'] as List<Juego>;
+
+          return MaterialPageRoute(
+            builder: (context) => PantallaAvance(
+              rutina: rutina,
+              perfil: perfil,
+              perfiles: perfiles,
+              juegos: juegos,
+            ),
+          );
+        }
+        return null;
       },
     );
   }

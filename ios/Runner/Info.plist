@@ -47,7 +47,7 @@
         <true/>
         <key>UIStatusBarHidden</key>
         <false/>
-        <!-- Agregar configuración para permitir cargas arbitrarias -->
+        
         <key>NSAppTransportSecurity</key>
         <dict>
             <key>NSAllowsArbitraryLoads</key>

@@ -51,7 +51,7 @@ class PantallaPerfilState extends State<PantallaPerfil> {
         return AlertDialog(
           backgroundColor: Colors.purple[100],
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('Rutina seleccionada para $juegoNombre', style: TextStyle(color: Colors.deepPurple[900])),
+          title: Text('Detalles de:  $juegoNombre', style: TextStyle(color: Colors.deepPurple[900])),
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,6 +112,16 @@ class PantallaPerfilState extends State<PantallaPerfil> {
                     SizedBox(width: 10),
                     Expanded(
                       child: Text('Dificultad: ${rutina.dificultad}', style: TextStyle(color: Colors.deepPurple[900])),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.deepPurple[900]),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text('Puntuación: ${rutina.puntuacion}', style: TextStyle(color: Colors.deepPurple[900])),
                     ),
                   ],
                 ),
@@ -186,10 +196,7 @@ class PantallaPerfilState extends State<PantallaPerfil> {
         children: [
           Text(
             'Progreso de Juegos',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Colors.deepPurple[900],
-            ),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           ...widget.juegos.map((juego) {
@@ -211,9 +218,16 @@ class PantallaPerfilState extends State<PantallaPerfil> {
         tileColor: Colors.purple[100],
         leading: Image.asset(juego.imagenUrl, width: 50, height: 50),
         title: Text(juego.nombre, style: TextStyle(color: Colors.deepPurple[900])),
-        subtitle: rutinaSeleccionada != null
-            ? Text('Rutina seleccionada: ${rutinaSeleccionada.nombre}', style: TextStyle(color: Colors.deepPurple[700]))
-            : const Text('Sin rutinas seleccionadas'),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Cambiar el texto aquí para "Puntuación máxima del juego: 10"
+            Text('Puntuación máxima del juego: 10', style: TextStyle(color: Colors.deepPurple[700])),
+            rutinaSeleccionada != null
+                ? Text('Rutina seleccionada: ${rutinaSeleccionada.nombre} (Puntuación: ${rutinaSeleccionada.puntuacion})', style: TextStyle(color: Colors.deepPurple[700]))
+                : const Text('Sin rutinas seleccionadas'),
+          ],
+        ),
         trailing: Icon(
           rutinaSeleccionada != null ? Icons.check_circle : Icons.radio_button_unchecked,
           color: rutinaSeleccionada != null ? Theme.of(context).primaryColor : Colors.grey,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/perfil.dart';
-import '../constants/colors.dart'; 
+import '../constants/colors.dart';
+import '../widgets/drawer_clase.dart'; 
 
 class PantallaConfiguracion extends StatefulWidget {
   final Perfil perfil;
@@ -20,11 +21,9 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Configuración', style: TextStyle(color: titleTextColor)), // Usar el color definido
-        backgroundColor: appBarColor, // Usar el color definido
-      ),
+    return DrawerClase.buildScaffold(
+      context: context,
+      title: 'Configuración',
       body: Container(
         color: backgroundColor, // Fondo acorde a la paleta de colores
         child: ListView(
@@ -84,10 +83,18 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'Encantado de conocerte, soy Ignacio Matus, el creador de esta aplicación, '
-                            'feliz de saber tu preferencia en nuestra aplicación y búsqueda en mejorar tu rendimiento en los videojuegos.',
-                            style: TextStyle(color: Colors.deepPurple[900]),
+                          Row(
+                            children: [
+                              Icon(Icons.person, color: Colors.deepPurple[900]),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Encantado de conocerte, soy Ignacio Matus, el creador de esta aplicación, '
+                                  'feliz de saber tu preferencia en nuestra aplicación y búsqueda en mejorar tu rendimiento en los videojuegos.',
+                                  style: TextStyle(color: Colors.deepPurple[900]),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -107,6 +114,9 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
           ],
         ),
       ),
+      perfil: widget.perfil,
+      perfiles: const [], 
+      juegos: const [], 
     );
   }
 }

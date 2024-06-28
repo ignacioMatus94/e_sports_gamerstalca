@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/juego.dart';
 import '../models/perfil.dart';
 import '../constants/colors.dart';
-import '../widgets/drawer_clase.dart'; 
+import '../widgets/drawer_clase.dart';
 
 class Home extends StatelessWidget {
   final List<Juego> juegos;
@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
         juegos: juegos,
       ),
       body: Container(
-        color: backgroundColor, // Usar el color de fondo definido
+        color: backgroundColor,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -77,6 +77,20 @@ class Home extends StatelessWidget {
                       label: 'Seleccionar Rutina',
                       route: '/seleccionar_rutina',
                     ),
+                    _buildMenuItem(
+                      context,
+                      icon: Icons.bar_chart,
+                      label: 'Registrar Avance',
+                      onTap: () {
+                        // Lógica para navegar a la pantalla de avance
+                        Navigator.pushNamed(context, '/avance', arguments: {
+                          'rutina': juegos[0].rutinas[0], // Ajusta esto según sea necesario
+                          'perfil': perfil,
+                          'perfiles': perfiles,
+                          'juegos': juegos,
+                        });
+                      },
+                    ),
                   ],
                 ),
               ],
@@ -87,15 +101,17 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, {required IconData icon, required String label, required String route}) {
+  Widget _buildMenuItem(BuildContext context, {required IconData icon, required String label, String? route, VoidCallback? onTap}) {
     return Card(
       color: Colors.purple,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, route);
+        onTap: onTap ?? () {
+          if (route != null) {
+            Navigator.pushNamed(context, route);
+          }
         },
         child: Center(
           child: Column(
