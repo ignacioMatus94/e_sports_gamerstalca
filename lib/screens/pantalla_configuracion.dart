@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/perfil.dart';
-import '../constants/colors.dart'; // Importar el archivo de colores
+import '../constants/colors.dart'; 
 
 class PantallaConfiguracion extends StatefulWidget {
   final Perfil perfil;
@@ -18,79 +18,6 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
   bool _notificationsEnabled = false;
   bool _darkModeEnabled = false;
 
-  void _mostrarAcercaDe(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.purple[100],
-          title: Row(
-            children: [
-              Icon(Icons.info, color: Colors.deepPurple[900]),
-              SizedBox(width: 8),
-              Text('Acerca de', style: TextStyle(color: Colors.deepPurple[900])),
-            ],
-          ),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.person, color: Colors.deepPurple[900]),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(color: Colors.deepPurple[700], fontSize: 16),
-                        children: <TextSpan>[
-                          TextSpan(text: 'Encantado de conocerte, soy '),
-                          TextSpan(
-                            text: 'Ignacio Matus',
-                            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple[900]),
-                          ),
-                          TextSpan(text: ', el creador de esta aplicación.'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Icon(Icons.favorite, color: Colors.deepPurple[900]),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: RichText(
-                      text: TextSpan(
-                        style: TextStyle(color: Colors.deepPurple[700], fontSize: 16),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Feliz de saber tu preferencia en nuestra aplicación y búsqueda en mejorar tu rendimiento en los videojuegos.',
-                            style: TextStyle(color: Colors.deepPurple[700]),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK', style: TextStyle(color: Colors.deepPurple[900])),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +26,7 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
         backgroundColor: appBarColor, // Usar el color definido
       ),
       body: Container(
-        color: Colors.purple[50], // Fondo acorde a la paleta de colores
+        color: backgroundColor, // Fondo acorde a la paleta de colores
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: <Widget>[
@@ -141,7 +68,40 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
               leading: Icon(Icons.info, color: Colors.deepPurple[900]),
               title: Text('Acerca de', style: TextStyle(color: Colors.deepPurple[900])),
               onTap: () {
-                _mostrarAcercaDe(context);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.purple[100],
+                      title: Row(
+                        children: [
+                          Icon(Icons.info, color: Colors.deepPurple[900]),
+                          SizedBox(width: 10),
+                          Text('Acerca de', style: TextStyle(color: Colors.deepPurple[900])),
+                        ],
+                      ),
+                      content: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Encantado de conocerte, soy Ignacio Matus, el creador de esta aplicación, '
+                            'feliz de saber tu preferencia en nuestra aplicación y búsqueda en mejorar tu rendimiento en los videojuegos.',
+                            style: TextStyle(color: Colors.deepPurple[900]),
+                          ),
+                        ],
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('OK', style: TextStyle(color: Colors.deepPurple[900])),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
           ],

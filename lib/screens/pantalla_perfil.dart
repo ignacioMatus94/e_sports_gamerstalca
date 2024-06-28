@@ -4,7 +4,7 @@ import '../models/juego.dart';
 import '../models/rutina.dart';
 import '../services/database_service.dart';
 import '../widgets/drawer_clase.dart';
-import '../constants/colors.dart'; // Importar el archivo de colores
+import '../constants/colors.dart';
 
 class PantallaPerfil extends StatefulWidget {
   final Perfil perfil;
@@ -50,27 +50,77 @@ class PantallaPerfilState extends State<PantallaPerfil> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.purple[100],
-          title: Text('Rutina seleccionada para $juegoNombre'),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Nombre: ${rutina.nombre}'),
-              SizedBox(height: 10),
-              Text('Descripción: ${rutina.descripcion}'),
-              SizedBox(height: 10),
-              Text('Objetivo: ${rutina.objetivo}'),
-              SizedBox(height: 10),
-              Text('Pasos: ${rutina.pasos}'),
-              SizedBox(height: 10),
-              Text('Resultados esperados: ${rutina.resultadosEsperados}'),
-              SizedBox(height: 10),
-              Text('Dificultad: ${rutina.dificultad}'),
-            ],
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          title: Text('Rutina seleccionada para $juegoNombre', style: TextStyle(color: Colors.deepPurple[900])),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.fitness_center, color: Colors.deepPurple[900]),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text('Nombre: ${rutina.nombre}', style: TextStyle(color: Colors.deepPurple[900])),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(Icons.description, color: Colors.deepPurple[900]),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text('Descripción: ${rutina.descripcion}', style: TextStyle(color: Colors.deepPurple[900])),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(Icons.flag, color: Colors.deepPurple[900]),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text('Objetivo: ${rutina.objetivo}', style: TextStyle(color: Colors.deepPurple[900])),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(Icons.list, color: Colors.deepPurple[900]),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text('Pasos: ${rutina.pasos}', style: TextStyle(color: Colors.deepPurple[900])),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: Colors.deepPurple[900]),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text('Resultados esperados: ${rutina.resultadosEsperados}', style: TextStyle(color: Colors.deepPurple[900])),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Icon(Icons.verified, color: Colors.deepPurple[900]),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Text('Dificultad: ${rutina.dificultad}', style: TextStyle(color: Colors.deepPurple[900])),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(color: Colors.deepPurple)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -87,7 +137,7 @@ class PantallaPerfilState extends State<PantallaPerfil> {
       context: context,
       title: 'Perfil',
       body: Container(
-        color: Colors.purple[100],
+        color: backgroundColor,
         child: FutureBuilder<Map<int, Rutina?>>(
           future: _rutinasSeleccionadas,
           builder: (context, snapshot) {
@@ -109,55 +159,45 @@ class PantallaPerfilState extends State<PantallaPerfil> {
   }
 
   Widget _buildPerfilContent(BuildContext context, Map<int, Rutina?> rutinasSeleccionadas) {
-    return SingleChildScrollView(
-      child: Container(
-        color: Colors.purple[100],
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              color: Colors.deepPurple[200],
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(widget.perfil.avatarUrl),
-                    radius: 40,
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    'Perfil de ${widget.perfil.nombre}',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold, color: Colors.deepPurple[900]),
-                  ),
-                ],
-              ),
+    return Column(
+      children: [
+        Container(
+          color: Colors.deepPurple[100],
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: CircleAvatar(
+              backgroundImage: AssetImage(widget.perfil.avatarUrl),
+              radius: 40,
             ),
-            const SizedBox(height: 20),
-            _buildProgresoJuegos(context, rutinasSeleccionadas),
-          ],
+          ),
         ),
-      ),
+        const SizedBox(height: 20),
+        Expanded(
+          child: _buildProgresoJuegos(context, rutinasSeleccionadas),
+        ),
+      ],
     );
   }
 
   Widget _buildProgresoJuegos(BuildContext context, Map<int, Rutina?> rutinasSeleccionadas) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          color: Colors.deepPurple[200],
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
             'Progreso de Juegos',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.deepPurple[900]),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Colors.deepPurple[900],
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        ...widget.juegos.map((juego) {
-          final rutinaSeleccionada = rutinasSeleccionadas[juego.id];
-          return _buildJuegoCard(context, juego, rutinaSeleccionada);
-        }).toList(),
-      ],
+          const SizedBox(height: 10),
+          ...widget.juegos.map((juego) {
+            final rutinaSeleccionada = rutinasSeleccionadas[juego.id];
+            return _buildJuegoCard(context, juego, rutinaSeleccionada);
+          }).toList(),
+        ],
+      ),
     );
   }
 

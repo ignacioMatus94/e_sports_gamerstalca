@@ -10,7 +10,6 @@ import 'models/perfil.dart';
 import 'models/rutina.dart';
 import 'models/juego.dart';
 import 'services/database_service.dart';
-import 'constants/remove_debug_banner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -99,6 +98,46 @@ void main() async {
     ),
     Juego(
       id: 3,
+      nombre: 'Starcraft',
+      descripcion: 'Un juego de estrategia en tiempo real en el espacio',
+      imagenUrl: 'assets/starcraft.png',
+      genero: 'Estrategia en Tiempo Real',
+      ano: 1998,
+      desarrollador: 'Blizzard Entertainment',
+      link: 'https://www.blizzard.com/',
+      puntuacion: 9.5,
+      rutinas: [
+        Rutina(
+          id: 7,
+          nombre: 'Fácil',
+          descripcion: 'Una rutina fácil para principiantes',
+          objetivo: 'Ganar la primera campaña',
+          pasos: 'Sigue los pasos del tutorial',
+          resultadosEsperados: 'Aprender las mecánicas básicas',
+          dificultad: 'Fácil',
+        ),
+        Rutina(
+          id: 8,
+          nombre: 'Media',
+          descripcion: 'Una rutina de dificultad media',
+          objetivo: 'Ganar tres campañas',
+          pasos: 'Usa las estrategias avanzadas',
+          resultadosEsperados: 'Mejorar tus habilidades',
+          dificultad: 'Media',
+        ),
+        Rutina(
+          id: 9,
+          nombre: 'Difícil',
+          descripcion: 'Una rutina difícil para expertos',
+          objetivo: 'Ganar todas las campañas sin perder unidades clave',
+          pasos: 'Sigue las estrategias de los expertos',
+          resultadosEsperados: 'Convertirte en un maestro del juego',
+          dificultad: 'Difícil',
+        ),
+      ],
+    ),
+    Juego(
+      id: 4,
       nombre: 'Pacman',
       descripcion: 'Un juego clásico de laberintos',
       imagenUrl: 'assets/pacman.png',
@@ -109,7 +148,7 @@ void main() async {
       puntuacion: 8.5,
       rutinas: [
         Rutina(
-          id: 7,
+          id: 10,
           nombre: 'Fácil',
           descripcion: 'Una rutina fácil para principiantes',
           objetivo: 'Completar el primer nivel',
@@ -118,7 +157,7 @@ void main() async {
           dificultad: 'Fácil',
         ),
         Rutina(
-          id: 8,
+          id: 11,
           nombre: 'Media',
           descripcion: 'Una rutina de dificultad media',
           objetivo: 'Completar los primeros 3 niveles',
@@ -127,7 +166,7 @@ void main() async {
           dificultad: 'Media',
         ),
         Rutina(
-          id: 9,
+          id: 12,
           nombre: 'Difícil',
           descripcion: 'Una rutina difícil para expertos',
           objetivo: 'Completar el juego sin perder vidas',
@@ -147,20 +186,15 @@ void main() async {
 
   final perfiles = [perfil];
 
-  runApp(RemoveDebugBanner(juegos: juegos, perfil: perfil, perfiles: perfiles));
+  runApp(MyApp(juegos: juegos, perfil: perfil, perfiles: perfiles));
 }
 
-class RemoveDebugBanner extends StatelessWidget {
+class MyApp extends StatelessWidget {
   final List<Juego> juegos;
   final Perfil perfil;
   final List<Perfil> perfiles;
 
-  const RemoveDebugBanner({
-    super.key,
-    required this.juegos,
-    required this.perfil,
-    required this.perfiles,
-  });
+  MyApp({required this.juegos, required this.perfil, required this.perfiles});
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +204,6 @@ class RemoveDebugBanner extends StatelessWidget {
         primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(

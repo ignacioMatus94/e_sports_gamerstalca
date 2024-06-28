@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart'; // Asegúrate de importar la pantalla Home
+import 'home.dart'; 
 import 'package:logger/logger.dart';
 import '../models/perfil.dart';
 import '../models/juego.dart';

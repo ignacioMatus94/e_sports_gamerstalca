@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/perfil.dart';
 import '../models/juego.dart';
-import '../constants/colors.dart'; // Importar el archivo de colores
+import '../constants/colors.dart'; 
 
 class DrawerClase extends StatelessWidget {
   final Perfil perfil;
@@ -63,6 +63,13 @@ class DrawerClase extends StatelessWidget {
               Navigator.pushNamed(context, '/seleccionar_rutina');
             },
           ),
+          ListTile(
+            leading: Icon(Icons.history),
+            title: Text('Historial de Avances'),
+            onTap: () {
+              Navigator.pushNamed(context, '/historial');
+            },
+          ),
         ],
       ),
     );
@@ -82,7 +89,10 @@ class DrawerClase extends StatelessWidget {
         backgroundColor: appBarColor, // Usar el color definido
       ),
       drawer: DrawerClase(perfil: perfil, perfiles: perfiles, juegos: juegos),
-      body: body,
+      body: Container(
+        color: backgroundColor, // Usar el color de fondo definido
+        child: body,
+      ),
     );
   }
 }

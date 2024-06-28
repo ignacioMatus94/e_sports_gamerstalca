@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Añade el permiso de Internet aquí -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:label="e_sports_gamerstalca"
         android:name="${applicationName}"

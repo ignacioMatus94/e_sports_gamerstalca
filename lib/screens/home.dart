@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/perfil.dart';
 import '../models/juego.dart';
+import '../models/perfil.dart';
 import '../constants/colors.dart';
-import '../widgets/drawer_clase.dart';
+import '../widgets/drawer_clase.dart'; 
 
 class Home extends StatelessWidget {
   final List<Juego> juegos;
@@ -28,56 +28,59 @@ class Home extends StatelessWidget {
         perfiles: perfiles,
         juegos: juegos,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Bienvenido, ${perfil.nombre}',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.purple),
-              ),
-              const SizedBox(height: 20),
-              GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                children: <Widget>[
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.videogame_asset,
-                    label: 'Ver Juegos',
-                    route: '/juegos',
-                  ),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.person,
-                    label: 'Ver Perfil',
-                    route: '/perfil',
-                  ),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.settings,
-                    label: 'Configuración',
-                    route: '/configuracion',
-                  ),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.history,
-                    label: 'Historial de Avances',
-                    route: '/historial',
-                  ),
-                  _buildMenuItem(
-                    context,
-                    icon: Icons.list,
-                    label: 'Seleccionar Rutina',
-                    route: '/seleccionar_rutina',
-                  ),
-                ],
-              ),
-            ],
+      body: Container(
+        color: backgroundColor, // Usar el color de fondo definido
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Bienvenido, ${perfil.nombre}',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.purple),
+                ),
+                const SizedBox(height: 20),
+                GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  children: <Widget>[
+                    _buildMenuItem(
+                      context,
+                      icon: Icons.videogame_asset,
+                      label: 'Ver Juegos',
+                      route: '/juegos',
+                    ),
+                    _buildMenuItem(
+                      context,
+                      icon: Icons.person,
+                      label: 'Ver Perfil',
+                      route: '/perfil',
+                    ),
+                    _buildMenuItem(
+                      context,
+                      icon: Icons.settings,
+                      label: 'Configuración',
+                      route: '/configuracion',
+                    ),
+                    _buildMenuItem(
+                      context,
+                      icon: Icons.history,
+                      label: 'Historial de Avances',
+                      route: '/historial',
+                    ),
+                    _buildMenuItem(
+                      context,
+                      icon: Icons.list,
+                      label: 'Seleccionar Rutina',
+                      route: '/seleccionar_rutina',
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
