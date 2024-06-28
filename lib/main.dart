@@ -10,6 +10,7 @@ import 'models/perfil.dart';
 import 'models/rutina.dart';
 import 'models/juego.dart';
 import 'services/database_service.dart';
+import 'constants/remove_debug_banner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -146,15 +147,20 @@ void main() async {
 
   final perfiles = [perfil];
 
-  runApp(MyApp(juegos: juegos, perfil: perfil, perfiles: perfiles));
+  runApp(RemoveDebugBanner(juegos: juegos, perfil: perfil, perfiles: perfiles));
 }
 
-class MyApp extends StatelessWidget {
+class RemoveDebugBanner extends StatelessWidget {
   final List<Juego> juegos;
   final Perfil perfil;
   final List<Perfil> perfiles;
 
-  MyApp({required this.juegos, required this.perfil, required this.perfiles});
+  const RemoveDebugBanner({
+    super.key,
+    required this.juegos,
+    required this.perfil,
+    required this.perfiles,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +170,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(

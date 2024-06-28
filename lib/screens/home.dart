@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/juego.dart';
 import '../models/perfil.dart';
+import '../models/juego.dart';
+import '../constants/colors.dart';
+import '../widgets/drawer_clase.dart';
 
 class Home extends StatelessWidget {
   final List<Juego> juegos;
@@ -18,7 +20,13 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Home', style: TextStyle(color: titleTextColor)),
+        backgroundColor: appBarColor,
+      ),
+      drawer: DrawerClase(
+        perfil: perfil,
+        perfiles: perfiles,
+        juegos: juegos,
       ),
       body: SingleChildScrollView(
         child: Padding(

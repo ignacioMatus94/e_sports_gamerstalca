@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/perfil.dart';
 import '../models/juego.dart';
+import '../constants/colors.dart'; // Importar el archivo de colores
 
 class DrawerClase extends StatelessWidget {
   final Perfil perfil;
@@ -55,6 +56,13 @@ class DrawerClase extends StatelessWidget {
               Navigator.pushNamed(context, '/configuracion');
             },
           ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Seleccionar Rutina'),
+            onTap: () {
+              Navigator.pushNamed(context, '/seleccionar_rutina');
+            },
+          ),
         ],
       ),
     );
@@ -70,7 +78,8 @@ class DrawerClase extends StatelessWidget {
   }) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title, style: TextStyle(color: titleTextColor)), // Usar el color definido
+        backgroundColor: appBarColor, // Usar el color definido
       ),
       drawer: DrawerClase(perfil: perfil, perfiles: perfiles, juegos: juegos),
       body: body,
