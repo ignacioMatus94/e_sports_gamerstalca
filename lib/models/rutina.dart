@@ -1,14 +1,16 @@
-import 'package:equatable/equatable.dart';
+import 'dart:convert';
 
-class Rutina extends Equatable {
-  final int? id;
+class Rutina {
+  final int id;
   final String nombre;
   final String descripcion;
   final String objetivo;
-  final String pasos;
+  final Map<String, bool> pasos;
   final String resultadosEsperados;
   final String dificultad;
-  final double puntuacion;  
+  final double puntuacion;
+  final int juegoId;
+  int? perfilId;
 
   Rutina({
     required this.id,
@@ -18,21 +20,10 @@ class Rutina extends Equatable {
     required this.pasos,
     required this.resultadosEsperados,
     required this.dificultad,
-    required this.puntuacion,  
+    required this.puntuacion,
+    required this.juegoId,
+    this.perfilId,
   });
-
-  factory Rutina.fromMap(Map<String, dynamic> map) {
-    return Rutina(
-      id: map['id'],
-      nombre: map['nombre'],
-      descripcion: map['descripcion'],
-      objetivo: map['objetivo'],
-      pasos: map['pasos'],
-      resultadosEsperados: map['resultadosEsperados'],
-      dificultad: map['dificultad'],
-      puntuacion: map['puntuacion'],  
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -40,22 +31,30 @@ class Rutina extends Equatable {
       'nombre': nombre,
       'descripcion': descripcion,
       'objetivo': objetivo,
-      'pasos': pasos,
+      'pasos': jsonEncode(pasos),
       'resultadosEsperados': resultadosEsperados,
       'dificultad': dificultad,
-      'puntuacion': puntuacion,  
+      'puntuacion': puntuacion,
+      'juegoId': juegoId,
+      'perfil_id': perfilId,
     };
   }
 
-  @override
-  List<Object?> get props => [
-        id,
-        nombre,
-        descripcion,
-        objetivo,
-        pasos,
-        resultadosEsperados,
-        dificultad,
-        puntuacion,  // Asegúrate de incluir la puntuación aquí
-      ];
+  factory Rutina.fromMap(Map<String, dynamic> map) {
+    return Rutina(
+      id: map['id'],
+      nombre: map['nombre'],
+      descripcion: map['descripcion'],
+      objetivo: map['objetivo'],
+      pasos: jsonDecode(map['pasos']) is Map<String, dynamic>
+          ? (jsonDecode(map['pasos']) as Map<String, dynamic>)
+              .map((key, value) => MapEntry(key, value as bool))
+          : {},
+      resultadosEsperados: map['resultadosEsperados'],
+      dificultad: map['dificultad'],
+      puntuacion: map['puntuacion'],
+      juegoId: map['juegoId'],
+      perfilId: map['perfil_id'],
+    );
+  }
 }

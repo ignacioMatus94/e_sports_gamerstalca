@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../models/avance.dart';
 import '../models/perfil.dart';
 import '../models/rutina.dart';
-import '../models/avance.dart';
 import '../services/database_service.dart';
 
 class PantallaRegistrarAvance extends StatefulWidget {
-  final Perfil perfil;
+  final List<Perfil> perfiles;
   final Rutina rutina;
 
   const PantallaRegistrarAvance({
-    super.key,
-    required this.perfil,
+    Key? key,
+    required this.perfiles,
     required this.rutina,
-  });
+  }) : super(key: key);
 
   @override
   _PantallaRegistrarAvanceState createState() => _PantallaRegistrarAvanceState();
@@ -22,12 +23,21 @@ class _PantallaRegistrarAvanceState extends State<PantallaRegistrarAvance> {
   final TextEditingController _progresoController = TextEditingController();
 
   void _registrarAvance() async {
+    final perfil = widget.perfiles.first;
     final int progreso = int.parse(_progresoController.text);
     final Avance avance = Avance(
       id: null,
-      perfilId: widget.perfil.id!,
-      rutinaId: widget.rutina.id!,
-      fecha: DateTime.now(),
+      perfilId: perfil.id,
+      rutinaId: widget.rutina.id,
+      juegoId: widget.rutina.juegoId,
+      nombre: widget.rutina.nombre,
+      descripcion: widget.rutina.descripcion,
+      objetivo: widget.rutina.objetivo,
+      pasos: widget.rutina.pasos,
+      resultadosEsperados: widget.rutina.resultadosEsperados,
+      dificultad: widget.rutina.dificultad,
+      puntuacion: widget.rutina.puntuacion,
+      fecha: DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
       progreso: progreso,
     );
 
@@ -51,7 +61,7 @@ class _PantallaRegistrarAvanceState extends State<PantallaRegistrarAvance> {
             ),
             ElevatedButton(
               onPressed: _registrarAvance,
-              child: Text('Registrar'),
+              child: const Text('Registrar'),
             ),
           ],
         ),

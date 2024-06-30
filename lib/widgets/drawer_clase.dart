@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import '../models/perfil.dart';
 import '../models/juego.dart';
-import '../constants/colors.dart';
 
 class DrawerClase extends StatelessWidget {
-  final Perfil perfil;
   final List<Perfil> perfiles;
   final List<Juego> juegos;
 
   const DrawerClase({
-    super.key,
-    required this.perfil,
+    Key? key,
     required this.perfiles,
     required this.juegos,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final perfilActual = perfiles.first;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(perfil.nombre),
+            accountName: Text(perfilActual.nombre),
             accountEmail: Text('user@example.com'),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage(perfil.avatarUrl),
+              backgroundImage: AssetImage(perfilActual.avatarUrl),
             ),
           ),
           ListTile(
@@ -74,12 +73,7 @@ class DrawerClase extends StatelessWidget {
             leading: Icon(Icons.bar_chart),
             title: Text('Registrar Avance'),
             onTap: () {
-              Navigator.pushNamed(context, '/avance', arguments: {
-                'rutina': juegos[0].rutinas[0], 
-                'perfil': perfil,
-                'perfiles': perfiles,
-                'juegos': juegos,
-              });
+              Navigator.pushNamed(context, '/avance');
             },
           ),
         ],
@@ -91,18 +85,16 @@ class DrawerClase extends StatelessWidget {
     required BuildContext context,
     required String title,
     required Widget body,
-    required Perfil perfil,
     required List<Perfil> perfiles,
     required List<Juego> juegos,
   }) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title, style: TextStyle(color: titleTextColor)),
-        backgroundColor: appBarColor,
+        title: Text(title),
       ),
-      drawer: DrawerClase(perfil: perfil, perfiles: perfiles, juegos: juegos),
+      drawer: DrawerClase(perfiles: perfiles, juegos: juegos),
       body: Container(
-        color: backgroundColor,
+        color: Colors.white,
         child: body,
       ),
     );

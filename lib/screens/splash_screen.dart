@@ -3,15 +3,16 @@ import 'home.dart';
 import 'package:logger/logger.dart';
 import '../models/perfil.dart';
 import '../models/juego.dart';
+import '../models/rutina.dart';
 
 final logger = Logger();
 
 class SplashScreen extends StatefulWidget {
-  final Perfil perfil;
   final List<Perfil> perfiles;
   final List<Juego> juegos;
+  final Map<int, Rutina> rutinasSeleccionadas;
 
-  const SplashScreen({super.key, required this.perfil, required this.perfiles, required this.juegos});
+  const SplashScreen({Key? key, required this.perfiles, required this.juegos, required this.rutinasSeleccionadas}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -38,8 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(
           builder: (context) => Home(
             juegos: widget.juegos,
-            perfil: widget.perfil,
             perfiles: widget.perfiles,
+            rutinasSeleccionadas: widget.rutinasSeleccionadas,
           ),
         ),
       );

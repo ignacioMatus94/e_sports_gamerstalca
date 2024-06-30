@@ -1,71 +1,74 @@
+import 'package:e_sports_gamerstalca/configuracion_list_tile.dart';
+import 'package:e_sports_gamerstalca/configuracion_switch_tile.dart';
 import 'package:flutter/material.dart';
 import '../models/perfil.dart';
 import '../constants/colors.dart';
-import '../widgets/drawer_clase.dart'; 
+import '../widgets/drawer_clase.dart';
 
 class PantallaConfiguracion extends StatefulWidget {
-  final Perfil perfil;
+  final List<Perfil> perfiles;
 
   const PantallaConfiguracion({
-    super.key,
-    required this.perfil,
+    super.key, // Convertir 'key' a un super parámetro
+    required this.perfiles,
   });
 
   @override
-  _PantallaConfiguracionState createState() => _PantallaConfiguracionState();
+  PantallaConfiguracionState createState() => PantallaConfiguracionState(); // Hacer la clase pública
 }
 
-class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
+class PantallaConfiguracionState extends State<PantallaConfiguracion> {
   bool _notificationsEnabled = false;
   bool _darkModeEnabled = false;
 
   @override
   Widget build(BuildContext context) {
+
     return DrawerClase.buildScaffold(
       context: context,
       title: 'Configuración',
       body: Container(
-        color: backgroundColor, // Fondo acorde a la paleta de colores
+        color: backgroundColor,
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: <Widget>[
-            SwitchListTile(
-              activeColor: appBarColor,
-              title: Text('Activar notificaciones', style: TextStyle(color: Colors.deepPurple[900])),
+            ConfiguracionSwitchTile(
+              title: 'Activar notificaciones',
               value: _notificationsEnabled,
               onChanged: (bool value) {
                 setState(() {
                   _notificationsEnabled = value;
                 });
               },
-            ),
-            SwitchListTile(
               activeColor: appBarColor,
-              title: Text('Modo oscuro', style: TextStyle(color: Colors.deepPurple[900])),
+            ),
+            ConfiguracionSwitchTile(
+              title: 'Modo oscuro',
               value: _darkModeEnabled,
               onChanged: (bool value) {
                 setState(() {
                   _darkModeEnabled = value;
                 });
               },
+              activeColor: appBarColor,
             ),
-            ListTile(
-              leading: Icon(Icons.language, color: Colors.deepPurple[900]),
-              title: Text('Idioma', style: TextStyle(color: Colors.deepPurple[900])),
+            ConfiguracionListTile(
+              icon: Icons.language,
+              title: 'Idioma',
               onTap: () {
                 // Implementar la funcionalidad de cambio de idioma aquí
               },
             ),
-            ListTile(
-              leading: Icon(Icons.lock, color: Colors.deepPurple[900]),
-              title: Text('Privacidad', style: TextStyle(color: Colors.deepPurple[900])),
+            ConfiguracionListTile(
+              icon: Icons.lock,
+              title: 'Privacidad',
               onTap: () {
                 // Implementar la funcionalidad de configuración de privacidad aquí
               },
             ),
-            ListTile(
-              leading: Icon(Icons.info, color: Colors.deepPurple[900]),
-              title: Text('Acerca de', style: TextStyle(color: Colors.deepPurple[900])),
+            ConfiguracionListTile(
+              icon: Icons.info,
+              title: 'Acerca de',
               onTap: () {
                 showDialog(
                   context: context,
@@ -75,7 +78,7 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
                       title: Row(
                         children: [
                           Icon(Icons.info, color: Colors.deepPurple[900]),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10), // Añadir const
                           Text('Acerca de', style: TextStyle(color: Colors.deepPurple[900])),
                         ],
                       ),
@@ -86,7 +89,7 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
                           Row(
                             children: [
                               Icon(Icons.person, color: Colors.deepPurple[900]),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10), // Añadir const
                               Expanded(
                                 child: Text(
                                   'Encantado de conocerte, soy Ignacio Matus, el creador de esta aplicación, '
@@ -114,9 +117,8 @@ class _PantallaConfiguracionState extends State<PantallaConfiguracion> {
           ],
         ),
       ),
-      perfil: widget.perfil,
-      perfiles: const [], 
-      juegos: const [], 
+      perfiles: widget.perfiles,
+      juegos: const [],
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:e_sports_gamerstalca/models/rutina.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/juego.dart';
@@ -6,14 +7,14 @@ import '../widgets/drawer_clase.dart';
 
 class PantallaDetallesJuegos extends StatelessWidget {
   final Juego juego;
-  final Perfil perfil;
   final List<Perfil> perfiles;
+  final Map<int, Rutina> rutinasSeleccionadas;
 
   const PantallaDetallesJuegos({
     super.key,
     required this.juego,
-    required this.perfil,
     required this.perfiles,
+    required this.rutinasSeleccionadas,
   });
 
   @override
@@ -86,7 +87,6 @@ class PantallaDetallesJuegos extends StatelessWidget {
             ),
         ],
       ),
-      perfil: perfil,
       perfiles: perfiles,
       juegos: [],
     );
@@ -94,8 +94,8 @@ class PantallaDetallesJuegos extends StatelessWidget {
 
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
-    if (await canLaunch(uri.toString())) {
-      await launch(uri.toString());
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
       throw 'No se pudo abrir el enlace $url';
     }
