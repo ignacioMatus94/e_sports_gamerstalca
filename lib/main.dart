@@ -1,60 +1,67 @@
 import 'package:flutter/material.dart';
 import 'services/database_service.dart';
-import 'obtener_juegos.dart';
-import 'screens/home.dart';
-import 'screens/pantalla_juegos.dart';
-import 'screens/pantalla_perfil.dart';
-import 'screens/pantalla_configuracion.dart';
-import 'screens/pantalla_historial_avances.dart';
-import 'screens/pantalla_seleccionar_rutina.dart';
-import 'screens/pantalla_avance.dart';
-import 'models/juego.dart';
-import 'models/perfil.dart';
-import 'models/rutina.dart';
+import 'screens/home_screen.dart';
+import 'screens/progress_screen.dart';
+import 'screens/game_details_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/history_screen.dart';
+import 'screens/game_info.dart';
+import 'models/game.dart';
+import 'timer_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await DatabaseService().initializeDatabase();
-
-  final juegos = obtenerJuegos();
-  await DatabaseService().insertarRutinasIniciales(juegos);
-
-  final perfiles = [Perfil(id: 1, nombre: 'Usuario', avatarUrl: 'assets/profile_picture.png')];
-  final rutinasSeleccionadas = <int, Rutina>{};
-
-  runApp(MyApp(juegos: juegos, perfiles: perfiles, rutinasSeleccionadas: rutinasSeleccionadas));
+  try {
+    await DatabaseService().initializeDatabase();
+    debugPrint('Database initialized successfully');
+  } catch (error) {
+    debugPrint('Error initializing database: $error');
+  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final List<Juego> juegos;
-  final List<Perfil> perfiles;
-  final Map<int, Rutina> rutinasSeleccionadas;
-
-  const MyApp({
-    super.key,
-    required this.juegos,
-    required this.perfiles,
-    required this.rutinasSeleccionadas,
-  });
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gestión de Rutinas',
+      debugShowCheckedModeBanner: false,
+      title: 'E_SPORTS_GAMERSTALCA',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.grey[200],
+        cardColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        textTheme: const TextTheme(
+          headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          titleMedium: TextStyle(fontSize: 18),
+          bodyLarge: TextStyle(fontSize: 16),
+        ),
       ),
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: {
-        '/': (context) => Home(juegos: juegos, perfiles: perfiles, rutinasSeleccionadas: rutinasSeleccionadas),
-        '/home': (context) => Home(juegos: juegos, perfiles: perfiles, rutinasSeleccionadas: rutinasSeleccionadas),
-        '/juegos': (context) => PantallaJuegos(juegos: juegos, perfiles: perfiles),
-        '/perfil': (context) => PantallaPerfil(perfiles: perfiles, juegos: juegos, rutinasSeleccionadas: rutinasSeleccionadas),
-        '/configuracion': (context) => PantallaConfiguracion(perfiles: perfiles),
-        '/historial': (context) => PantallaHistorialAvances(rutina: juegos[0].rutinas[0], perfiles: perfiles, juegos: juegos, rutinasSeleccionadas: rutinasSeleccionadas),
-        '/seleccionar_rutina': (context) => PantallaSeleccionarRutina(juegos: juegos, perfiles: perfiles, rutinasSeleccionadas: rutinasSeleccionadas),
-        '/avance': (context) => PantallaAvance(rutinasSeleccionadas: rutinasSeleccionadas, perfiles: perfiles, juegos: juegos),
+        '/home': (context) => const HomeScreen(),
+        '/progress': (context) => ProgressScreen(routines: [], timerService: TimerService(() {})),
+        '/details': (context) => GameDetailsScreen(game: Game(
+            id: 0, 
+            name: 'Example Game', 
+            description: 'Description', 
+            imageUrl: 'assets/games.png', 
+            rating: 4.5, 
+            genre: 'Genre', 
+            year: 2021, 
+            developer: 'Developer', link: '')),
+        '/profile': (context) => const ProfileScreen(),
+        '/history': (context) => HistoryScreen(progressMap: {}, routines: []),
+        '/gameInfo': (context) => const GameInfoScreen(),
       },
     );
   }
