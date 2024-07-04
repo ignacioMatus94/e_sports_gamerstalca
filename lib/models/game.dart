@@ -4,7 +4,7 @@ class Game {
   final int id;
   final String name;
   final String description;
-  final String imageUrl;
+  final String imageUrl; 
   final String genre;
   final int year;
   final String developer;
@@ -30,27 +30,12 @@ class Game {
       id: map['id'],
       name: map['name'],
       description: map['description'],
-      imageUrl: map['imageUrl'],
+      imageUrl: map['imageUrl'], 
       genre: map['genre'],
       year: map['year'],
       developer: map['developer'],
       link: map['link'],
       rating: map['rating'],
-    );
-  }
-
-  factory Game.empty() {
-    return Game(
-      id: 0,
-      name: '',
-      description: '',
-      imageUrl: 'assets/games.png',
-      genre: '',
-      year: 0,
-      developer: '',
-      link: '',
-      rating: 0.0,
-      routines: [],
     );
   }
 

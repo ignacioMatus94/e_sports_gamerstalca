@@ -21,7 +21,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina fácil para principiantes',
           objective: 'Completar el primer mundo',
           steps: jsonEncode({
-            'Salta sobre los Goombas': true,
+            'Salta sobre los Goombas': false,
             'Recoge los power-ups': false,
             'Completa el nivel': false,
           }),
@@ -29,6 +29,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Fácil',
           rating: 6.0,
           gameId: 1,
+          imageUrl: 'assets/mario.png',
         ),
         Routine(
           id: 2,
@@ -36,7 +37,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina de dificultad media',
           objective: 'Completar los primeros 3 mundos',
           steps: jsonEncode({
-            'Encuentra todas las monedas escondidas': true,
+            'Encuentra todas las monedas escondidas': false,
             'Evita las trampas': false,
             'Derrota a los jefes de cada mundo': false,
           }),
@@ -44,6 +45,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Media',
           rating: 7.0,
           gameId: 1,
+          imageUrl: 'assets/mario.png',
         ),
         Routine(
           id: 3,
@@ -51,7 +53,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina difícil para expertos',
           objective: 'Completar el juego sin morir',
           steps: jsonEncode({
-            'Memoriza los patrones enemigos': true,
+            'Memoriza los patrones enemigos': false,
             'Usa las habilidades avanzadas de salto': false,
             'Completa los niveles en tiempo récord': false,
           }),
@@ -59,6 +61,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Difícil',
           rating: 8.0,
           gameId: 1,
+          imageUrl: 'assets/mario.png',
         ),
       ],
     ),
@@ -79,7 +82,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina fácil para principiantes',
           objective: 'Completar el primer mundo',
           steps: jsonEncode({
-            'Recoge todos los lums': true,
+            'Recoge todos los lums': false,
             'Derrota a los enemigos básicos': false,
             'Usa las habilidades de salto y puñetazo': false,
           }),
@@ -87,6 +90,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Fácil',
           rating: 6.0,
           gameId: 2,
+          imageUrl: 'assets/rayman.png',
         ),
         Routine(
           id: 5,
@@ -94,7 +98,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina de dificultad media',
           objective: 'Completar los primeros 3 mundos',
           steps: jsonEncode({
-            'Encuentra las jaulas escondidas': true,
+            'Encuentra las jaulas escondidas': false,
             'Derrota a los mini-jefes': false,
             'Usa las habilidades avanzadas para superar obstáculos': false,
           }),
@@ -102,6 +106,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Media',
           rating: 7.0,
           gameId: 2,
+          imageUrl: 'assets/rayman.png',
         ),
         Routine(
           id: 6,
@@ -109,7 +114,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina difícil para expertos',
           objective: 'Completar el juego sin morir',
           steps: jsonEncode({
-            'Memoriza los patrones enemigos': true,
+            'Memoriza los patrones enemigos': false,
             'Usa las habilidades combinadas para moverte rápido': false,
             'Completa los niveles en tiempo récord': false,
           }),
@@ -117,6 +122,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Difícil',
           rating: 8.0,
           gameId: 2,
+          imageUrl: 'assets/rayman.png',
         ),
       ],
     ),
@@ -137,7 +143,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina fácil para principiantes',
           objective: 'Ganar la primera campaña',
           steps: jsonEncode({
-            'Construye una base sólida': true,
+            'Construye una base sólida': false,
             'Recolecta recursos': false,
             'Entrena unidades básicas': false,
           }),
@@ -145,6 +151,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Fácil',
           rating: 6.0,
           gameId: 3,
+          imageUrl: 'assets/starcraft.png',
         ),
         Routine(
           id: 8,
@@ -152,7 +159,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina de dificultad media',
           objective: 'Ganar tres campañas',
           steps: jsonEncode({
-            'Usa estrategias de ataque y defensa': true,
+            'Usa estrategias de ataque y defensa': false,
             'Investiga tecnologías avanzadas': false,
             'Maneja varias bases simultáneamente': false,
           }),
@@ -160,6 +167,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Media',
           rating: 7.0,
           gameId: 3,
+          imageUrl: 'assets/starcraft.png',
         ),
         Routine(
           id: 9,
@@ -167,7 +175,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina difícil para expertos',
           objective: 'Ganar todas las campañas sin perder unidades clave',
           steps: jsonEncode({
-            'Usa tácticas avanzadas de microgestión': true,
+            'Usa tácticas avanzadas de microgestión': false,
             'Coordina ataques múltiples': false,
             'Adapta estrategias según el enemigo': false,
           }),
@@ -175,6 +183,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Difícil',
           rating: 8.0,
           gameId: 3,
+          imageUrl: 'assets/starcraft.png',
         ),
       ],
     ),
@@ -195,7 +204,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina fácil para principiantes',
           objective: 'Completar el primer nivel',
           steps: jsonEncode({
-            'Come todos los puntos': true,
+            'Come todos los puntos': false,
             'Evita a los fantasmas': false,
             'Usa los power pellets estratégicamente': false,
           }),
@@ -203,6 +212,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Fácil',
           rating: 6.5,
           gameId: 4,
+          imageUrl: 'assets/pacman.png',
         ),
         Routine(
           id: 11,
@@ -210,7 +220,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina de dificultad media',
           objective: 'Completar los primeros 3 niveles',
           steps: jsonEncode({
-            'Memoriza los patrones de los fantasmas': true,
+            'Memoriza los patrones de los fantasmas': false,
             'Usa los túneles de manera eficiente': false,
             'Maximiza el uso de los power pellets': false,
           }),
@@ -218,6 +228,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Media',
           rating: 7.5,
           gameId: 4,
+          imageUrl: 'assets/pacman.png',
         ),
         Routine(
           id: 12,
@@ -225,7 +236,7 @@ List<Game> obtenerJuegos() {
           description: 'Una rutina difícil para expertos',
           objective: 'Completar el juego sin perder vidas',
           steps: jsonEncode({
-            'Predice los movimientos de los fantasmas': true,
+            'Predice los movimientos de los fantasmas': false,
             'Aprovecha al máximo los power pellets': false,
             'Juega a alta velocidad': false,
           }),
@@ -233,6 +244,7 @@ List<Game> obtenerJuegos() {
           difficulty: 'Difícil',
           rating: 8.5,
           gameId: 4,
+          imageUrl: 'assets/pacman.png',
         ),
       ],
     ),

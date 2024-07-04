@@ -1,13 +1,14 @@
 import 'dart:convert';
+import 'package:e_sports_gamerstalca/screens/game_info.dart';
 import 'package:e_sports_gamerstalca/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_sports_gamerstalca/models/routine.dart';
 import 'package:e_sports_gamerstalca/models/game.dart';
+import 'package:e_sports_gamerstalca/models/history.dart' as models;
 import 'package:e_sports_gamerstalca/services/database_service.dart';
 import 'package:e_sports_gamerstalca/screens/progress_screen.dart';
 import 'package:e_sports_gamerstalca/screens/profile_screen.dart';
 import 'package:e_sports_gamerstalca/screens/history_screen.dart';
-import 'package:e_sports_gamerstalca/screens/game_info.dart';
 import 'package:e_sports_gamerstalca/timer_service.dart';
 
 class GameDetailsScreen extends StatefulWidget {
@@ -84,7 +85,7 @@ class GameDetailsScreenState extends State<GameDetailsScreen> {
 
   Future<void> _toggleRoutineSelection(Routine routine, bool isSelected) async {
     if (isSelected) {
-      _selectRoutine(routine);
+      await _selectRoutine(routine);
     } else {
       _deselectRoutine(routine);
     }
@@ -94,11 +95,20 @@ class GameDetailsScreenState extends State<GameDetailsScreen> {
     });
   }
 
-  void _selectRoutine(Routine routine) {
+  Future<void> _selectRoutine(Routine routine) async {
     _selectedRoutinesPerGame.putIfAbsent(widget.game.id, () => {}).add(routine.id);
     routine.selectedAt = DateTime.now().toIso8601String();
     _isRoutineSelectable[routine.id] = false;
     debugPrint('Routine ${routine.id} selected in GameDetailsScreen');
+
+    // Insertar en el historial
+    final history = models.History(
+      id: 0,
+      routineId: routine.id,
+      description: 'Selected',
+      date: routine.selectedAt!,
+    );
+    await _databaseService.insertHistory(history);
   }
 
   void _deselectRoutine(Routine routine) {
@@ -109,14 +119,17 @@ class GameDetailsScreenState extends State<GameDetailsScreen> {
   }
 
   Future<void> _navigateToProgress() async {
-    final routines = await _databaseService.getRoutines();
-    final selectedRoutines = routines.where((routine) => routine.selectedAt != null).toList();
+    final routines = widget.game.routines.where((routine) => routine.selectedAt != null).toList();
+    debugPrint('Selected routines: ${routines.length}');
+    for (var routine in routines) {
+      debugPrint('Selected routine: ${routine.name}');
+    }
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ProgressScreen(
-          routines: selectedRoutines,
+          routines: routines,
           timerService: TimerService(() {}),
         ),
       ),
@@ -128,7 +141,7 @@ class GameDetailsScreenState extends State<GameDetailsScreen> {
 
   Future<void> _reloadGameAndRoutines() async {
     try {
-      final updatedGame = await _databaseService.getGameById(widget.game.id);
+      // Se ha eliminado la variable updatedGame
       final updatedRoutines = await _databaseService.getRoutinesByGameId(widget.game.id);
 
       setState(() {
@@ -145,13 +158,43 @@ class GameDetailsScreenState extends State<GameDetailsScreen> {
     }
   }
 
+  void _nextPhase(Routine routine) async {
+    setState(() {
+      final stepsMap = jsonDecode(routine.steps) as Map<String, dynamic>;
+      final totalSteps = stepsMap.length;
+      var completedSteps = stepsMap.values.where((value) => value).length;
+      var currentProgress = totalSteps > 0 ? (completedSteps / totalSteps) * 100.0 : 0.0;
+
+      debugPrint('Next phase for routine ${routine.name} with progress: $currentProgress%');
+
+      if (currentProgress < 100.0) {
+        int stepsToComplete = ((completedSteps + (totalSteps * 0.333).ceil()) - completedSteps).clamp(0, totalSteps - completedSteps);
+        for (var entry in stepsMap.entries) {
+          if (!entry.value && stepsToComplete > 0) {
+            stepsMap[entry.key] = true;
+            stepsToComplete--;
+          }
+        }
+        routine.updateSteps(stepsMap);
+      }
+    });
+
+    final history = models.History(
+      id: 0,
+      routineId: routine.id,
+      description: 'Next Phase',
+      date: DateTime.now().toIso8601String(),
+    );
+    await _databaseService.insertHistory(history);
+  }
+
   Widget _buildRoutineCard(Routine routine) {
     final stepsMap = jsonDecode(routine.steps) as Map<String, dynamic>;
     final isSelected = _selectedRoutinesPerGame[widget.game.id]?.contains(routine.id) ?? false;
     final canSelect = _canSelectRoutine(routine);
     final completedSteps = stepsMap.values.where((value) => value).length;
     final totalSteps = stepsMap.length;
-    final progress = totalSteps > 0 ? (completedSteps / totalSteps) * 100 : 0;
+    final progress = totalSteps > 0 ? (completedSteps / totalSteps) * 100.0 : 0.0;
 
     debugPrint('Progress for routine ${routine.id} in GameDetailsScreen build: $progress%');
 
@@ -461,8 +504,8 @@ class GameDetailsScreenState extends State<GameDetailsScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => HistoryScreen(
-                      progressMap: {}, // Pasa tu mapa de progreso aquí
-                      routines: [], // Pasa tus rutinas aquí
+                      progressMap: {}, 
+                      routines: widget.game.routines, 
                     ),
                   ),
                 );

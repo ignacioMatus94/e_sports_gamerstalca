@@ -8,7 +8,7 @@ import 'package:e_sports_gamerstalca/screens/profile_screen.dart';
 import 'package:e_sports_gamerstalca/screens/history_screen.dart';
 import 'package:e_sports_gamerstalca/screens/game_info.dart';
 import 'package:e_sports_gamerstalca/timer_service.dart';
-import '../app_drawer.dart'; // Importa el AppDrawer
+import '../app_drawer.dart'; 
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -69,7 +69,7 @@ class HomeScreenState extends State<HomeScreen> {
     } catch (error) {
       debugPrint('Error loading routines: $error');
       setState(() {
-        _routines = []; // Ensure _routines is not null
+        _routines = []; 
       });
     }
   }
@@ -168,7 +168,7 @@ class HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('E_SPORTS_GAMERSTALCA'),
       ),
-      drawer: AppDrawer(), // Usar el Drawer aquí
+      drawer: AppDrawer(), 
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : GridView.count(

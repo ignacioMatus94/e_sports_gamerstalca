@@ -5,7 +5,9 @@ import '../models/game.dart';
 import '../models/routine.dart';
 import '../models/profile.dart';
 import '../models/profile_routine.dart';
+import '../models/history.dart';
 import '../obtener_juegos.dart';
+
 class DatabaseService {
   static final DatabaseService _instance = DatabaseService._internal();
   static Database? _database;
@@ -24,7 +26,14 @@ class DatabaseService {
   }
 
   Future<void> initializeDatabase() async {
+    await _deleteExistingDatabase(); // Elimina la base de datos existente
     await database; // Inicializa la base de datos
+  }
+
+  Future<void> _deleteExistingDatabase() async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'app_database.db');
+    await deleteDatabase(path);
   }
 
   Future<Database> _initializeDatabase() async {
@@ -71,6 +80,7 @@ class DatabaseService {
         rating REAL,
         gameId INTEGER,
         selectedAt TEXT,
+        imageUrl TEXT,
         FOREIGN KEY (gameId) REFERENCES Games(id)
       )
     ''');
@@ -82,6 +92,15 @@ class DatabaseService {
         selectedDate TEXT,
         progress INTEGER,
         FOREIGN KEY (profileId) REFERENCES Profiles(id),
+        FOREIGN KEY (routineId) REFERENCES Routines(id)
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE History (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        routineId INTEGER,
+        description TEXT,
+        date TEXT,
         FOREIGN KEY (routineId) REFERENCES Routines(id)
       )
     ''');
@@ -119,8 +138,7 @@ class DatabaseService {
   }
 
   Future<void> updateRoutine(Routine routine) async {
-    final db = await database;
-    await db.update('Routines', routine.toMap(), where: 'id = ?', whereArgs: [routine.id]);
+    // Persistance disabled
   }
 
   Future<Routine> getRoutineById(int id) async {
@@ -167,6 +185,18 @@ class DatabaseService {
     return result.map((map) => ProfileRoutine.fromMap(map)).toList();
   }
 
+  Future<void> insertHistory(History history) async {
+    final db = await database;
+    debugPrint('Inserting history: ${history.toMap()}');
+    await db.insert('History', history.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<History>> getHistoryByRoutineId(int routineId) async {
+    final db = await database;
+    final result = await db.query('History', where: 'routineId = ?', whereArgs: [routineId]);
+    return result.map((map) => History.fromMap(map)).toList();
+  }
+
   Future<int> insertProfile(Profile profile) async {
     final db = await database;
     return await db.insert('Profiles', profile.toMap());
@@ -210,15 +240,20 @@ class DatabaseService {
   }
 
   Future<void> saveRoutines(List<Routine> routines) async {
-    final db = await database;
-    for (var routine in routines) {
-      await db.insert('Routines', routine.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
-    }
+    // Persistance disabled
   }
 
   Future<List<Routine>> loadRoutines() async {
     final db = await database;
     final result = await db.query('Routines');
     return result.map((map) => Routine.fromMap(map)).toList();
+  }
+
+  // Nuevo método para obtener todo el historial
+  Future<List<History>> getAllHistory() async {
+    final db = await database;
+    final result = await db.query('History');
+    debugPrint('Fetched ${result.length} history records from database');
+    return result.map((map) => History.fromMap(map)).toList();
   }
 }

@@ -1,23 +1,26 @@
 class History {
-  final int id;
+  final int? id;
   final int routineId;
   final String description;
   final String date;
 
   History({
-    required this.id,
+    this.id,
     required this.routineId,
     required this.description,
     required this.date,
   });
 
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
+    var map = <String, dynamic>{
       'routineId': routineId,
       'description': description,
       'date': date,
     };
+    if (id != null) {
+      map['id'] = id;
+    }
+    return map;
   }
 
   static History fromMap(Map<String, dynamic> map) {

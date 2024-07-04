@@ -5,12 +5,13 @@ class Routine {
   final String name;
   final String description;
   final String objective;
-  String steps; // Make this non-final to allow updates
+  String steps; 
   final String expectedResults;
   final String difficulty;
   final double rating;
   final int gameId;
   String? selectedAt;
+  final String imageUrl; 
 
   Routine({
     required this.id,
@@ -23,6 +24,7 @@ class Routine {
     required this.rating,
     required this.gameId,
     this.selectedAt,
+    required this.imageUrl,
   });
 
   Routine copyWith({
@@ -36,6 +38,7 @@ class Routine {
     double? rating,
     int? gameId,
     String? selectedAt,
+    String? imageUrl, 
   }) {
     return Routine(
       id: id ?? this.id,
@@ -48,6 +51,7 @@ class Routine {
       rating: rating ?? this.rating,
       gameId: gameId ?? this.gameId,
       selectedAt: selectedAt ?? this.selectedAt,
+      imageUrl: imageUrl ?? this.imageUrl, 
     );
   }
 
@@ -63,6 +67,7 @@ class Routine {
       rating: map['rating'],
       gameId: map['gameId'],
       selectedAt: map['selectedAt'],
+      imageUrl: map['imageUrl'], 
     );
   }
 
@@ -78,10 +83,11 @@ class Routine {
       'rating': rating,
       'gameId': gameId,
       'selectedAt': selectedAt,
+      'imageUrl': imageUrl,
     };
   }
 
-  // Getter para el progreso
+  // Método para obtener el progreso
   double get progress {
     final stepsMap = jsonDecode(steps) as Map<String, dynamic>;
     final completedSteps = stepsMap.values.where((value) => value).length;

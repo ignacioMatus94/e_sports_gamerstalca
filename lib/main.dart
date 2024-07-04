@@ -50,17 +50,22 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomeScreen(),
         '/progress': (context) => ProgressScreen(routines: [], timerService: TimerService(() {})),
-        '/details': (context) => GameDetailsScreen(game: Game(
-            id: 0, 
-            name: 'Example Game', 
-            description: 'Description', 
-            imageUrl: 'assets/games.png', 
-            rating: 4.5, 
-            genre: 'Genre', 
-            year: 2021, 
-            developer: 'Developer', link: '')),
+        '/details': (context) => GameDetailsScreen(
+          game: Game(
+            id: 0,
+            name: 'Example Game',
+            description: 'Description',
+            imageUrl: 'assets/games.png',
+            rating: 4.5,
+            genre: 'Genre',
+            year: 2021,
+            developer: 'Developer',
+            link: '',
+            routines: [],
+          ),
+        ),
         '/profile': (context) => const ProfileScreen(),
-        '/history': (context) => HistoryScreen(progressMap: {}, routines: []),
+        '/history': (context) => const HistoryScreen(progressMap: {}, routines: []),
         '/gameInfo': (context) => const GameInfoScreen(),
       },
     );

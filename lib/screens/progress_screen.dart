@@ -1,195 +1,234 @@
+import 'dart:async';
 import 'dart:convert';
-import 'package:e_sports_gamerstalca/screens/history_screen.dart';
+import 'package:e_sports_gamerstalca/routine_card.dart';
 import 'package:flutter/material.dart';
-import '../models/routine.dart';
-import '../routine_card.dart';
-import '../timer_service.dart';
-import '../services/database_service.dart';
-import '../app_drawer.dart';
+import 'package:e_sports_gamerstalca/timer_service.dart';
+import 'package:e_sports_gamerstalca/models/routine.dart';
+import 'package:e_sports_gamerstalca/models/history.dart';
+import 'package:e_sports_gamerstalca/services/database_service.dart';
+import 'package:e_sports_gamerstalca/screens/history_screen.dart';
 
 class ProgressScreen extends StatefulWidget {
   final List<Routine> routines;
   final TimerService timerService;
 
   const ProgressScreen({
-    Key? key,
+    super.key,
     required this.routines,
     required this.timerService,
-  }) : super(key: key);
+  });
 
   @override
-  _ProgressScreenState createState() => _ProgressScreenState();
+  ProgressScreenState createState() => ProgressScreenState();
 }
 
-class _ProgressScreenState extends State<ProgressScreen> {
-  late Map<int, double> progressMap;
-  late Map<int, int> timeLeftMap;
-  late Map<int, bool> canSelectAgain;
-  late Set<int> completionShown;
-  late TimerService timerService;
-  final DatabaseService _databaseService = DatabaseService();
+class ProgressScreenState extends State<ProgressScreen> {
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    _initializeProgressData();
+    _timer = Timer.periodic(const Duration(seconds: 1), _updateTime);
   }
 
-  Future<void> _initializeProgressData() async {
-    progressMap = {for (var routine in widget.routines) routine.id: routine.progress};
-    timeLeftMap = {for (var routine in widget.routines) routine.id: 0};
-    canSelectAgain = {for (var routine in widget.routines) routine.id: false};
-    completionShown = {};
-    timerService = widget.timerService;
-    timerService.startTimer(_updateAllProgress);
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _updateTime(Timer timer) {
     setState(() {});
   }
 
-  void _updateAllProgress() {
-    bool anyProgressUpdated = false;
-    bool allRoutinesCompleted = true;
-
-    for (var routine in widget.routines) {
-      if (_updateProgress(routine)) {
-        anyProgressUpdated = true;
-      }
-      if (progressMap[routine.id] != 100.0) {
-        allRoutinesCompleted = false;
-      }
-    }
-
-    if (!anyProgressUpdated || allRoutinesCompleted) {
-      timerService.stopTimer();
-    }
-  }
-
-  bool _updateProgress(Routine routine) {
-    final progress = progressMap[routine.id] ?? 0.0;
-    final timeLeft = timeLeftMap[routine.id] ?? 0;
-
-    if (timeLeft > 0) {
-      timeLeftMap[routine.id] = timeLeft - 1;
-    } else if (progress < 100.0) {
-      canSelectAgain[routine.id] = true;
-    }
-
-    if (progress >= 100.0) {
-      completionShown.add(routine.id);
-    }
-
-    setState(() {}); // Forzar la actualización de la UI
-    debugPrint('Progress for routine ${routine.id} in ProgressScreen: $progress%');
-    return progress < 100.0;
-  }
-
-  Future<void> _completeNextStep(Routine routine, double nextTarget) async {
-    final stepsMap = jsonDecode(routine.steps) as Map<String, dynamic>;
-    final totalSteps = stepsMap.length;
-    var completedSteps = stepsMap.values.where((value) => value).length;
-    var currentProgress = totalSteps > 0 ? (completedSteps / totalSteps) * 100.0 : 0.0;
-
-    while (currentProgress < nextTarget) {
-      final nextStep = stepsMap.entries.firstWhere((entry) => !entry.value, orElse: () => MapEntry('', false));
-      if (nextStep.key.isNotEmpty) {
-        stepsMap[nextStep.key] = true;
-        completedSteps++;
-        currentProgress = (completedSteps / totalSteps) * 100.0;
-        routine.updateSteps(stepsMap); // Utilizar el método updateSteps
-      }
-    }
-    progressMap[routine.id] = currentProgress;
-    routine.selectedAt = DateTime.now().toIso8601String();
-    canSelectAgain[routine.id] = nextTarget < 100.0;
-
+  Future<void> _resetProgress(Routine routine) async {
     setState(() {
-      debugPrint('Progress updated for routine ${routine.id} to $nextTarget% in ProgressScreen');
+      final stepsMap = jsonDecode(routine.steps) as Map<String, dynamic>;
+      stepsMap.updateAll((key, value) => false);
+      routine.updateSteps(stepsMap);
     });
 
-    // Guardar la rutina actualizada en la base de datos
-    await _databaseService.updateRoutine(routine);
+    await _saveRoutineAndHistory(routine, 'Reset Progress');
+  }
 
-    if (nextTarget < 100.0) {
-      timerService.resetTimer(15);
-      debugPrint('Timer reset at $nextTarget% for routine ${routine.id}');
-    } else {
-      bool allRoutinesCompleted = true;
-      for (var r in widget.routines) {
-        if (progressMap[r.id] != 100.0) {
-          allRoutinesCompleted = false;
+  Future<void> _resetPhase(Routine routine) async {
+    setState(() {
+      final stepsMap = jsonDecode(routine.steps) as Map<String, dynamic>;
+      final totalSteps = stepsMap.length;
+      int stepsToReset = (totalSteps * 0.333).ceil();
+      for (var entry in stepsMap.entries.toList().reversed) {
+        if (entry.value && stepsToReset > 0) {
+          stepsMap[entry.key] = false;
+          stepsToReset--;
+        }
+      }
+      routine.updateSteps(stepsMap);
+    });
+
+    await _saveRoutineAndHistory(routine, 'Reset Phase');
+  }
+
+  Future<void> _increaseProgress(Routine routine) async {
+    setState(() {
+      final stepsMap = jsonDecode(routine.steps) as Map<String, dynamic>;
+      for (var entry in stepsMap.entries) {
+        if (!entry.value) {
+          stepsMap[entry.key] = true;
           break;
         }
       }
-      if (allRoutinesCompleted) {
-        timerService.stopTimer();
-      }
-      debugPrint('Timer checked for all routines at $nextTarget% for routine ${routine.id}');
+      routine.updateSteps(stepsMap);
+    });
+
+    await _saveRoutineAndHistory(routine);
+  }
+
+  Future<void> _saveRoutineAndHistory(Routine routine, [String? description]) async {
+    await DatabaseService().updateRoutine(routine);
+    if (description != null && description.isNotEmpty) {
+      final history = History(
+        id: 0,
+        routineId: routine.id,
+        description: description,
+        date: DateTime.now().toIso8601String(),
+      );
+      await DatabaseService().insertHistory(history);
     }
   }
 
-  void _navigateToHistoryScreen() {
+  void _navigateToHistory(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => HistoryScreen(
-          progressMap: progressMap,
+          progressMap: {for (var routine in widget.routines) routine.id: routine.progress},
           routines: widget.routines,
         ),
       ),
     );
   }
 
-  String _getGameImage(int gameId) {
-    switch (gameId) {
-      case 1:
-        return 'assets/mario.png';
-      case 2:
-        return 'assets/rayman.png';
-      case 3:
-        return 'assets/starcraft.png';
-      case 4:
-        return 'assets/pacman.png';
-      default:
-        return 'assets/games.png';
-    }
-  }
-
-  @override
-  void dispose() {
-    timerService.stopTimer();
-    super.dispose();
+  Widget _buildRoutineCard(Routine routine) {
+    return RoutineCard(
+      routine: routine,
+      progress: routine.progress,
+      canSelectAgain: true,
+      timeLeft: 0,
+      onUpdateProgress: (updatedRoutine) {
+        setState(() {
+          final newSteps = (jsonDecode(updatedRoutine.steps) as Map<String, dynamic>).map((key, value) => MapEntry(key, true));
+          updatedRoutine.updateSteps(newSteps);
+        });
+      },
+      onIncreaseProgress: _increaseProgress,
+      onResetProgress: _resetProgress,
+      onResetPhase: _resetPhase,
+      gameImageUrl: routine.imageUrl,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('Initializing ProgressScreen with ${widget.routines.length} routines');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Progreso'),
         actions: [
           IconButton(
             icon: const Icon(Icons.history),
-            onPressed: _navigateToHistoryScreen,
+            onPressed: () => _navigateToHistory(context),
           ),
         ],
       ),
-      drawer: AppDrawer(), // Agregar el Drawer aquí
-      body: ListView.builder(
-        itemCount: widget.routines.length,
-        itemBuilder: (context, index) {
-          final routine = widget.routines[index];
-          final progress = progressMap[routine.id] ?? 0.0;
-          final timeLeft = timeLeftMap[routine.id] ?? 0;
-          final gameImageUrl = _getGameImage(routine.gameId);
-          return RoutineCard(
-            routine: routine,
-            progress: progress,
-            canSelectAgain: canSelectAgain[routine.id] ?? false,
-            timeLeft: timeLeft,
-            onUpdateProgress: _updateProgress,
-            onNextPhase: (routine) => _completeNextStep(routine, progress + 33.0), // Lógica para avanzar a la siguiente fase
-            gameImageUrl: gameImageUrl,
-          );
-        },
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: const Text(
+                'Menú de Navegación',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text(
+                'Inicio',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/home');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.gamepad),
+              title: const Text(
+                'Juegos',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/details');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.show_chart),
+              title: const Text(
+                'Progreso',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/progress');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text(
+                'Perfil',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/profile');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history),
+              title: const Text(
+                'Historial',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/history');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text(
+                'Información de Juegos',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, '/gameInfo');
+              },
+            ),
+          ],
+        ),
       ),
+      body: widget.routines.isEmpty
+          ? const Center(child: Text('Sin rutinas'))
+          : ListView.builder(
+              itemCount: widget.routines.length,
+              itemBuilder: (context, index) {
+                final routine = widget.routines[index];
+                return _buildRoutineCard(routine);
+              },
+            ),
     );
   }
 }

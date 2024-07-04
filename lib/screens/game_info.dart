@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:e_sports_gamerstalca/screens/game_details_screen.dart';
 import '../models/game.dart';
 import '../services/database_service.dart';
-import '../app_drawer.dart'; // Asegúrate de importar AppDrawer
-import 'package:url_launcher/url_launcher.dart'; // Importa url_launcher
+import '../app_drawer.dart'; 
+import 'package:url_launcher/url_launcher.dart'; 
 
 class GameInfoScreen extends StatefulWidget {
   const GameInfoScreen({super.key});
@@ -66,7 +66,7 @@ class GameInfoScreenState extends State<GameInfoScreen> {
       case 'rayman':
         return 'https://www.ubisoft.com/es-es/game/rayman/origins';
       default:
-        return null; // No returns a default URL
+        return null; 
     }
   }
 

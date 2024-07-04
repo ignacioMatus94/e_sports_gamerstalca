@@ -3,7 +3,7 @@ import '../services/database_service.dart';
 import 'home_screen.dart';
 import 'progress_screen.dart';
 import '../timer_service.dart';
-import '../app_drawer.dart'; // Asegúrate de importar AppDrawer
+import '../app_drawer.dart'; 
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
     final routines = await databaseService.getRoutines();
     final selectedRoutines = routines.where((routine) => routine.selectedAt != null).toList();
 
-    if (!context.mounted) return; // Verifica si el contexto sigue montado antes de usarlo
+    if (!context.mounted) return; 
 
     Navigator.push(
       context,
@@ -40,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Perfil'),
       ),
-      drawer: AppDrawer(), // Usar el Drawer aquí
+      drawer: AppDrawer(), 
       body: Center(
         child: Card(
           elevation: 8,

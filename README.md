@@ -1,69 +1,76 @@
-# E_SPORT_GAMERSTALCA
+# E_SPORTS_GAMERSTALCA
 
-E_SPORT_GAMERSTALCA es una aplicación de videojuegos diseñada para ayudar a los jugadores a gestionar su progreso, rutinas de entrenamiento, recordatorios y más.
+# DESCRIPCION
 
-## Descripción
+E_SPORTS_GAMERSTALCA es una aplicación móvil que permite a los usuarios gestionar y seguir su progreso en juegos y rutinas de entrenamiento relacionadas con esos juegos. La aplicación ofrece una interfaz intuitiva para ver detalles de juegos, realizar seguimientos de progreso y gestionar perfiles de usuario.
+ 
+# REQUISITOS FUNCIONALES
 
-La aplicación permite a los usuarios:
+# GESTION DE JUEGOS
 
-- Ver una lista de juegos con detalles como género, descripción, lanzamiento y desarrollador.
-- Ver y gestionar sus rutinas de entrenamiento específicas para cada juego.
-- Establecer y verificar recordatorios relacionados con sus juegos favoritos.
-- Ver su perfil con información personal y progreso en los juegos.
-- Configurar notificaciones y otros ajustes de la aplicación.
+Permitir a los usuarios ver una lista de juegos disponibles.
 
-## Requisitos Funcionales
+Mostrar detalles de cada juego, incluyendo nombre, descripción, imagen, género, año, desarrollador, enlace y calificación.
 
-1. **Pantalla de Inicio de Sesión**:
-   - Permite al usuario iniciar sesión ingresando su nombre de usuario y contraseña.
-   - Navega a la pantalla principal después de iniciar sesión correctamente.
+Acceder a rutinas específicas relacionadas con cada juego.
 
-2. **Pantalla Principal**:
-   - Muestra un resumen de las secciones disponibles: Juegos, Rutinas, Recordatorios, Perfil.
-   - Navegación a las diferentes secciones a través de tarjetas de resumen y un BottomNavigationBar.
+# GESTION DE RUTINAS
 
-3. **Pantalla de Juegos**:
-   - Lista todos los juegos disponibles con detalles y una imagen.
-   - Permite la expansión para ver más detalles de cada juego.
+Ver y seleccionar rutinas de entrenamiento para cada juego.
 
-4. **Pantalla de Rutinas de Entrenamiento**:
-   - Lista las rutinas de entrenamiento específicas para cada juego.
-   - Muestra el nivel de dificultad de cada rutina.
+Mostrar detalles de cada rutina, incluyendo nombre, descripción, objetivo, pasos, resultados esperados, dificultad y calificación.
 
-5. **Pantalla de Recordatorios**:
-   - Lista recordatorios y tareas relacionadas con los juegos.
-   - Permite marcar los recordatorios como completados y ver detalles adicionales.
+Seguir el progreso en cada rutina, con una interfaz que muestre el porcentaje de pasos completados.
 
-6. **Pantalla de Perfil**:
-   - Muestra información personal del usuario, incluyendo nombre de usuario y correo electrónico.
-   - Lista el progreso del usuario en diferentes juegos.
+# GESTION DE PERFIL
 
-7. **Pantalla de Configuración**:
-   - Permite al usuario configurar notificaciones y otros ajustes.
+Crear y gestionar perfiles de usuario, incluyendo nombre y correo electrónico.
+Ver y editar rutinas seleccionadas.
+Ver el historial de progreso en las rutinas.
 
-## Requisitos No Funcionales
+# PROGRESO Y HISTORIAL
 
-1. **Interfaz de Usuario**:
-   - La aplicación debe tener una interfaz de usuario intuitiva y fácil de usar.
-   - Uso de colores y temas consistentes en toda la aplicación.
-   - Optimizada para diferentes tamaños de pantalla.
+Registrar el progreso de los usuarios en cada rutina.
+Ver el historial de progreso en una pantalla dedicada.
 
-2. **Rendimiento**:
-   - La aplicación debe ser rápida y receptiva.
-   - Minimizar el uso de recursos del dispositivo.
+# NAVEGACION
 
-3. **Seguridad**:
-   - Manejo seguro de la información del usuario.
-   - Proteger los datos de inicio de sesión.
+Proporcionar una navegación fácil a través de diferentes pantallas como Inicio, Juegos, Progreso, Perfil, Historial e Información de Juegos.
 
-4. **Mantenibilidad**:
-   - Código limpio y bien documentado.
-   - Uso de buenas prácticas de programación para facilitar futuras mejoras y mantenimiento.
+Permitir a los usuarios navegar a los detalles del juego desde cualquier pantalla relacionada.
 
+# PERSISTENCIA DE DATOS
 
+Guardar y cargar datos utilizando una base de datos SQLite para asegurar la persistencia de datos entre sesiones.
+Insertar datos iniciales en la base de datos solo si está vacía.
 
-## Instalación
+# REQUISITOS NO FUNCIONALES
 
-1. **Clona el repositorio**: https://github.com/ignacioMatus94/e_sports_gamerstalca
-2. **Enlace de video de presentacion**: https://drive.google.com/file/d/1OlfspjVn3zC2at60OYcM5yNpk0bYFq3P/view?usp=sharing
-3. **Enlace de video de recursos funcionales y no funcionales**: https://drive.google.com/file/d/1Kv0bwX6pr-YNKAg98xgM3x8ofADD2UQd/view?usp=sharing
+# RENDIMIENTO
+
+Cargar datos rápidamente para una experiencia de usuario fluida.
+Manejar eficientemente la memoria y los recursos del dispositivo.
+
+# USABILIDAD
+
+La interfaz de usuario debe ser intuitiva y fácil de usar.
+Proporcionar una navegación clara y coherente.
+
+# COMPATIBILIDAD
+
+Ser compatible con dispositivos Android.
+Funcionar correctamente en diferentes tamaños de pantalla y resoluciones.
+
+# SEGURIDAD
+
+Asegurar que los datos del usuario se mantengan privados y seguros.
+
+Manejar errores de manera adecuada y proporcionar mensajes de error útiles.
+Mantenimiento
+
+El código debe estar bien documentado y estructurado para facilitar el mantenimiento y las actualizaciones futuras.
+
+# VIDEO
+
+Enlace: 
+
