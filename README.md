@@ -74,3 +74,6 @@ El código debe estar bien documentado y estructurado para facilitar el mantenim
 
 Enlace: 
 
+Diagrama de flujo: https://drive.google.com/file/d/1AQhO_SxZZshY6StiEJi3yEzWn44IlQpi/view?usp=sharing
+
+
