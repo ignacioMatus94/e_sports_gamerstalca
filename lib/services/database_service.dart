@@ -7,7 +7,6 @@ import '../models/profile.dart';
 import '../models/profile_routine.dart';
 import '../models/history.dart';
 import '../obtener_juegos.dart';
-
 class DatabaseService {
   static final DatabaseService _instance = DatabaseService._internal();
   static Database? _database;
@@ -26,14 +25,7 @@ class DatabaseService {
   }
 
   Future<void> initializeDatabase() async {
-    await _deleteExistingDatabase(); // Elimina la base de datos existente
-    await database; // Inicializa la base de datos
-  }
-
-  Future<void> _deleteExistingDatabase() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'app_database.db');
-    await deleteDatabase(path);
+    await database; // Inicializa la base de datos sin eliminar la existente
   }
 
   Future<Database> _initializeDatabase() async {
@@ -138,7 +130,8 @@ class DatabaseService {
   }
 
   Future<void> updateRoutine(Routine routine) async {
-    // Persistance disabled
+    final db = await database;
+    await db.update('Routines', routine.toMap(), where: 'id = ?', whereArgs: [routine.id]);
   }
 
   Future<Routine> getRoutineById(int id) async {
@@ -240,7 +233,10 @@ class DatabaseService {
   }
 
   Future<void> saveRoutines(List<Routine> routines) async {
-    // Persistance disabled
+    final db = await database;
+    for (var routine in routines) {
+      await db.insert('Routines', routine.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    }
   }
 
   Future<List<Routine>> loadRoutines() async {

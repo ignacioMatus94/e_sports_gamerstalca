@@ -11,8 +11,9 @@ import 'timer_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final databaseService = DatabaseService();
   try {
-    await DatabaseService().initializeDatabase();
+    await databaseService.initializeDatabase();
     debugPrint('Database initialized successfully');
   } catch (error) {
     debugPrint('Error initializing database: $error');
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         '/profile': (context) => const ProfileScreen(),
-        '/history': (context) => const HistoryScreen(progressMap: {}, routines: []),
+        '/history': (context) => HistoryScreen(progressMap: {}, routines: []),
         '/gameInfo': (context) => const GameInfoScreen(),
       },
     );

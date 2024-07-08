@@ -72,8 +72,11 @@ El código debe estar bien documentado y estructurado para facilitar el mantenim
 
 # VIDEO
 
-Enlace: 
+Enlace de video : https://drive.google.com/file/d/1NCNtq0UKeuwY6pzXUrjq3TDOrB9NleNZ/view?usp=sharing
 
-Diagrama de flujo: https://drive.google.com/file/d/1AQhO_SxZZshY6StiEJi3yEzWn44IlQpi/view?usp=sharing
+Diagrama de jerarquia: https://docs.google.com/drawings/d/1nfTY289xUtOkXdw_U2DlCdIS1aD997TEgaKCLj81EK8/edit?usp=sharing
+
+Diagrama de flujo: https2://drive.google.com/file/d/1DlFoccbYclXstwU_81QwtuQCGr2XRZOt/view?usp=sharing
+
 
 
