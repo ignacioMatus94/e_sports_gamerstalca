@@ -1,204 +1,73 @@
 import 'package:flutter/material.dart';
-import 'screens/home.dart';
-import 'screens/pantalla_perfil.dart';
-import 'screens/pantalla_historial_avances.dart';
-import 'screens/pantalla_seleccionar_rutina.dart';
-import 'screens/pantalla_juegos.dart';
-import 'screens/pantalla_configuracion.dart';
-import 'screens/splash_screen.dart';
-import 'models/perfil.dart';
-import 'models/rutina.dart';
-import 'models/juego.dart';
 import 'services/database_service.dart';
+import 'screens/home_screen.dart';
+import 'screens/progress_screen.dart';
+import 'screens/game_details_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/history_screen.dart';
+import 'screens/game_info.dart';
+import 'models/game.dart';
+import 'timer_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DatabaseService().initializeDatabase();
-
-  final juegos = [
-    Juego(
-      id: 1,
-      nombre: 'Super Mario',
-      descripcion: 'Un juego clásico de plataformas',
-      imagenUrl: 'assets/mario.png',
-      genero: 'Plataformas',
-      ano: 1985,
-      desarrollador: 'Nintendo',
-      link: 'https://www.nintendo.com/',
-      puntuacion: 9.5,
-      rutinas: [
-        Rutina(
-          id: 1,
-          nombre: 'Fácil',
-          descripcion: 'Una rutina fácil para principiantes',
-          objetivo: 'Completar el primer mundo',
-          pasos: 'Sigue los pasos del tutorial',
-          resultadosEsperados: 'Aprender las mecánicas básicas',
-          dificultad: 'Fácil',
-        ),
-        Rutina(
-          id: 2,
-          nombre: 'Media',
-          descripcion: 'Una rutina de dificultad media',
-          objetivo: 'Completar los primeros 3 mundos',
-          pasos: 'Sigue las estrategias avanzadas',
-          resultadosEsperados: 'Mejorar tus habilidades',
-          dificultad: 'Media',
-        ),
-        Rutina(
-          id: 3,
-          nombre: 'Difícil',
-          descripcion: 'Una rutina difícil para expertos',
-          objetivo: 'Completar el juego sin morir',
-          pasos: 'Sigue las estrategias de los expertos',
-          resultadosEsperados: 'Convertirte en un maestro del juego',
-          dificultad: 'Difícil',
-        ),
-      ],
-    ),
-    Juego(
-      id: 2,
-      nombre: 'Rayman',
-      descripcion: 'Un juego de plataformas con hermosos gráficos',
-      imagenUrl: 'assets/rayman.png',
-      genero: 'Plataformas',
-      ano: 1995,
-      desarrollador: 'Ubisoft',
-      link: 'https://www.ubisoft.com/',
-      puntuacion: 9.0,
-      rutinas: [
-        Rutina(
-          id: 4,
-          nombre: 'Fácil',
-          descripcion: 'Una rutina fácil para principiantes',
-          objetivo: 'Completar el primer mundo',
-          pasos: 'Sigue los pasos del tutorial',
-          resultadosEsperados: 'Aprender las mecánicas básicas',
-          dificultad: 'Fácil',
-        ),
-        Rutina(
-          id: 5,
-          nombre: 'Media',
-          descripcion: 'Una rutina de dificultad media',
-          objetivo: 'Completar los primeros 3 mundos',
-          pasos: 'Sigue las estrategias avanzadas',
-          resultadosEsperados: 'Mejorar tus habilidades',
-          dificultad: 'Media',
-        ),
-        Rutina(
-          id: 6,
-          nombre: 'Difícil',
-          descripcion: 'Una rutina difícil para expertos',
-          objetivo: 'Completar el juego sin morir',
-          pasos: 'Sigue las estrategias de los expertos',
-          resultadosEsperados: 'Convertirte en un maestro del juego',
-          dificultad: 'Difícil',
-        ),
-      ],
-    ),
-    Juego(
-      id: 3,
-      nombre: 'Pacman',
-      descripcion: 'Un juego clásico de laberintos',
-      imagenUrl: 'assets/pacman.png',
-      genero: 'Arcade',
-      ano: 1980,
-      desarrollador: 'Namco',
-      link: 'https://www.bandainamcoent.com/',
-      puntuacion: 8.5,
-      rutinas: [
-        Rutina(
-          id: 7,
-          nombre: 'Fácil',
-          descripcion: 'Una rutina fácil para principiantes',
-          objetivo: 'Completar el primer nivel',
-          pasos: 'Sigue los pasos del tutorial',
-          resultadosEsperados: 'Aprender las mecánicas básicas',
-          dificultad: 'Fácil',
-        ),
-        Rutina(
-          id: 8,
-          nombre: 'Media',
-          descripcion: 'Una rutina de dificultad media',
-          objetivo: 'Completar los primeros 3 niveles',
-          pasos: 'Sigue las estrategias avanzadas',
-          resultadosEsperados: 'Mejorar tus habilidades',
-          dificultad: 'Media',
-        ),
-        Rutina(
-          id: 9,
-          nombre: 'Difícil',
-          descripcion: 'Una rutina difícil para expertos',
-          objetivo: 'Completar el juego sin perder vidas',
-          pasos: 'Sigue las estrategias de los expertos',
-          resultadosEsperados: 'Convertirte en un maestro del juego',
-          dificultad: 'Difícil',
-        ),
-      ],
-    ),
-  ];
-
-  final perfil = Perfil(
-    id: 1,
-    nombre: 'Usuario',
-    avatarUrl: 'assets/profile_picture.png',
-  );
-
-  final perfiles = [perfil];
-
-  runApp(MyApp(juegos: juegos, perfil: perfil, perfiles: perfiles));
+  final databaseService = DatabaseService();
+  try {
+    await databaseService.initializeDatabase();
+    debugPrint('Database initialized successfully');
+  } catch (error) {
+    debugPrint('Error initializing database: $error');
+  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final List<Juego> juegos;
-  final Perfil perfil;
-  final List<Perfil> perfiles;
-
-  MyApp({required this.juegos, required this.perfil, required this.perfiles});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'E-Sports Gamerstalca',
+      debugShowCheckedModeBanner: false,
+      title: 'E_SPORTS_GAMERSTALCA',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.grey[200],
+        cardColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blue,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        textTheme: const TextTheme(
+          headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          titleMedium: TextStyle(fontSize: 18),
+          bodyLarge: TextStyle(fontSize: 16),
+        ),
       ),
-      initialRoute: '/splash',
+      initialRoute: '/home',
       routes: {
-        '/splash': (context) => SplashScreen(
-              perfil: perfil,
-              perfiles: perfiles,
-              juegos: juegos,
-            ),
-        '/home': (context) => Home(
-              juegos: juegos,
-              perfil: perfil,
-              perfiles: perfiles,
-            ),
-        '/perfil': (context) => PantallaPerfil(
-              perfil: perfil,
-              perfiles: perfiles,
-              juegos: juegos,
-            ),
-        '/seleccionar_rutina': (context) => PantallaSeleccionarRutina(
-              juegos: juegos,
-              perfil: perfil,
-              perfiles: perfiles,
-            ),
-        '/configuracion': (context) => PantallaConfiguracion(
-              perfil: perfil,
-            ),
-        '/juegos': (context) => PantallaJuegos(
-              juegos: juegos,
-              perfil: perfil,
-              perfiles: perfiles,
-            ),
-        '/historial': (context) => PantallaHistorialAvances(
-              rutina: juegos[0].rutinas[0],
-              perfil: perfil,
-              juegos: juegos,
-            ),
+        '/home': (context) => const HomeScreen(),
+        '/progress': (context) => ProgressScreen(routines: [], timerService: TimerService(() {})),
+        '/details': (context) => GameDetailsScreen(
+          game: Game(
+            id: 0,
+            name: 'Example Game',
+            description: 'Description',
+            imageUrl: 'assets/games.png',
+            rating: 4.5,
+            genre: 'Genre',
+            year: 2021,
+            developer: 'Developer',
+            link: '',
+            routines: [],
+          ),
+        ),
+        '/profile': (context) => const ProfileScreen(),
+        '/history': (context) => HistoryScreen(progressMap: {}, routines: []),
+        '/gameInfo': (context) => const GameInfoScreen(),
       },
     );
   }

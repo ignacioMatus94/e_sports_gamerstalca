@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Añade el permiso de Internet aquí -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:label="e_sports_gamerstalca"
         android:name="${applicationName}"
@@ -40,5 +44,8 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
+        <intent>
+    <action android:name="android.support.customtabs.action.CustomTabsService" />
+  </intent>
     </queries>
 </manifest>

@@ -1,21 +1,19 @@
 class Perfil {
   final int id;
   final String nombre;
-  final String avatarUrl;
+  final String email;
 
   Perfil({
     required this.id,
     required this.nombre,
-    required this.avatarUrl,
+    required this.email,
   });
-
-  String get nombreUsuario => nombre; // Agrega este getter si no existe
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'nombre': nombre,
-      'avatarUrl': avatarUrl,
+      'email': email,
     };
   }
 
@@ -23,7 +21,7 @@ class Perfil {
     return Perfil(
       id: map['id'],
       nombre: map['nombre'],
-      avatarUrl: map['avatarUrl'],
+      email: map['email'],
     );
   }
 }

@@ -1,134 +1,255 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import '../models/juego.dart';
-import '../models/rutina.dart';
-
+import '../models/game.dart';
+import '../models/routine.dart';
+import '../models/profile.dart';
+import '../models/profile_routine.dart';
+import '../models/history.dart';
+import '../obtener_juegos.dart';
 class DatabaseService {
   static final DatabaseService _instance = DatabaseService._internal();
   static Database? _database;
 
-  DatabaseService._internal();
+  factory DatabaseService() {
+    return _instance;
+  }
 
-  factory DatabaseService() => _instance;
+  DatabaseService._internal();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await initializeDatabase();
+
+    _database = await _initializeDatabase();
     return _database!;
   }
 
-  Future<Database> initializeDatabase() async {
-    String path = join(await getDatabasesPath(), 'app_database.db');
+  Future<void> initializeDatabase() async {
+    await database; // Inicializa la base de datos sin eliminar la existente
+  }
+
+  Future<Database> _initializeDatabase() async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'app_database.db');
+
     return await openDatabase(
       path,
       version: 1,
-      onCreate: (db, version) async {
-        await db.execute('''
-          CREATE TABLE perfiles (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT,
-            avatarUrl TEXT
-          )
-        ''');
-        await db.execute('''
-          CREATE TABLE rutinas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT,
-            descripcion TEXT,
-            objetivo TEXT,
-            pasos TEXT,
-            resultadosEsperados TEXT,
-            dificultad TEXT,
-            juego_id INTEGER
-          )
-        ''');
-        await db.execute('''
-          CREATE TABLE perfil_rutinas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            perfil_id INTEGER,
-            rutina_id INTEGER,
-            juego_id INTEGER,
-            FOREIGN KEY(perfil_id) REFERENCES perfiles(id),
-            FOREIGN KEY(rutina_id) REFERENCES rutinas(id)
-          )
-        ''');
-      },
+      onCreate: _onCreate,
     );
   }
 
-  Future<void> deleteDatabaseFile() async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'app_database.db');
-    await deleteDatabase(path);
-    _database = null; // Reset the database instance
+  Future<void> _onCreate(Database db, int version) async {
+    await db.execute('''
+      CREATE TABLE Profiles (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        email TEXT
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE Games (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        description TEXT,
+        imageUrl TEXT,
+        genre TEXT,
+        year INTEGER,
+        developer TEXT,
+        link TEXT,
+        rating REAL
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE Routines (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        description TEXT,
+        objective TEXT,
+        steps TEXT,
+        expectedResults TEXT,
+        difficulty TEXT,
+        rating REAL,
+        gameId INTEGER,
+        selectedAt TEXT,
+        imageUrl TEXT,
+        FOREIGN KEY (gameId) REFERENCES Games(id)
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE ProfileRoutines (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        profileId INTEGER,
+        routineId INTEGER,
+        selectedDate TEXT,
+        progress INTEGER,
+        FOREIGN KEY (profileId) REFERENCES Profiles(id),
+        FOREIGN KEY (routineId) REFERENCES Routines(id)
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE History (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        routineId INTEGER,
+        description TEXT,
+        date TEXT,
+        FOREIGN KEY (routineId) REFERENCES Routines(id)
+      )
+    ''');
+
+    // Insertar juegos y rutinas de prueba
+    await _insertInitialData(db);
   }
 
-  Future<void> insertPerfil(Map<String, dynamic> perfil) async {
-    final db = await database;
-    await db.insert('perfiles', perfil, conflictAlgorithm: ConflictAlgorithm.replace);
-  }
-
-  Future<void> insertRutina(Map<String, dynamic> rutina) async {
-    final db = await database;
-    await db.insert('rutinas', rutina, conflictAlgorithm: ConflictAlgorithm.replace);
-  }
-
-  Future<void> selectRutinaForPerfil(int perfilId, int rutinaId, int juegoId) async {
-    final db = await database;
-    await db.insert('perfil_rutinas', {'perfil_id': perfilId, 'rutina_id': rutinaId, 'juego_id': juegoId}, conflictAlgorithm: ConflictAlgorithm.replace);
-  }
-
-  Future<void> deleteRutinaForPerfil(int perfilId, int juegoId) async {
-    final db = await database;
-    await db.delete('perfil_rutinas', where: 'perfil_id = ? AND juego_id = ?', whereArgs: [perfilId, juegoId]);
-  }
-
-  Future<Map<String, dynamic>?> getRutinaSeleccionada(int perfilId, int juegoId) async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.rawQuery(
-      'SELECT r.* FROM rutinas r '
-      'INNER JOIN perfil_rutinas pr ON r.id = pr.rutina_id '
-      'WHERE pr.perfil_id = ? AND pr.juego_id = ?',
-      [perfilId, juegoId]
-    );
-
-    if (maps.isNotEmpty) {
-      return maps.first;
-    } else {
-      return null;
-    }
-  }
-
-  Future<void> deleteRutinasForPerfil(int perfilId) async {
-    final db = await database;
-    await db.delete('perfil_rutinas', where: 'perfil_id = ?', whereArgs: [perfilId]);
-  }
-
-  Future<List<Map<String, dynamic>>> getRutinasSeleccionadas(int perfilId) async {
-    final db = await database;
-    return await db.rawQuery(
-      'SELECT pr.rutina_id, r.* FROM perfil_rutinas pr '
-      'INNER JOIN rutinas r ON pr.rutina_id = r.id '
-      'WHERE pr.perfil_id = ?',
-      [perfilId]
-    );
-  }
-
-  Future<List<Map<String, dynamic>>> getHistoriales(int rutinaId) async {
-    final db = await database;
-    // Aquí debes implementar la lógica para obtener los historiales
-    return [];
-  }
-
-  Future<void> insertarRutinasIniciales(List<Juego> juegos) async {
-    final db = await database;
-    for (var juego in juegos) {
-      for (var rutina in juego.rutinas) {
-        await insertRutina({
-          ...rutina.toMap(),
-          'juego_id': juego.id,
-        });
+  Future<void> _insertInitialData(Database db) async {
+    List<Game> juegos = obtenerJuegos();
+    for (var game in juegos) {
+      debugPrint('Inserting game: ${game.name}');
+      int gameId = await db.insert('Games', game.toMap());
+      for (var routine in game.routines) {
+        debugPrint('Inserting routine: ${routine.name} for game ID: $gameId');
+        routine = routine.copyWith(gameId: gameId);
+        await db.insert('Routines', routine.toMap());
       }
     }
+  }
+
+  Future<List<Game>> getGames({int limit = 10, int offset = 0}) async {
+    final db = await database;
+    final result = await db.query('Games', limit: limit, offset: offset);
+    debugPrint('Loaded games: ${result.length}');
+    List<Game> games = result.map((map) => Game.fromMap(map)).toList();
+
+    for (var game in games) {
+      final routinesResult = await db.query('Routines', where: 'gameId = ?', whereArgs: [game.id]);
+      List<Routine> routines = routinesResult.map((map) => Routine.fromMap(map)).toList();
+      game.routines = routines;
+    }
+
+    return games;
+  }
+
+  Future<void> updateRoutine(Routine routine) async {
+    final db = await database;
+    await db.update('Routines', routine.toMap(), where: 'id = ?', whereArgs: [routine.id]);
+  }
+
+  Future<Routine> getRoutineById(int id) async {
+    final db = await database;
+    final result = await db.query('Routines', where: 'id = ?', whereArgs: [id], limit: 1);
+    if (result.isNotEmpty) {
+      return Routine.fromMap(result.first);
+    } else {
+      throw Exception('Routine not found');
+    }
+  }
+
+  Future<Game> getGameById(int id) async {
+    final db = await database;
+    final result = await db.query('Games', where: 'id = ?', whereArgs: [id], limit: 1);
+    if (result.isNotEmpty) {
+      return Game.fromMap(result.first);
+    } else {
+      throw Exception('Game not found');
+    }
+  }
+
+  Future<List<Routine>> getRoutinesByGameId(int gameId) async {
+    final db = await database;
+    final result = await db.query('Routines', where: 'gameId = ?', whereArgs: [gameId]);
+    return result.map((map) => Routine.fromMap(map)).toList();
+  }
+
+  Future<List<Routine>> getRoutines() async {
+    final db = await database;
+    final result = await db.query('Routines');
+    return result.map((map) => Routine.fromMap(map)).toList();
+  }
+
+  Future<List<Profile>> getProfiles() async {
+    final db = await database;
+    final result = await db.query('Profiles');
+    return result.map((map) => Profile.fromMap(map)).toList();
+  }
+
+  Future<List<ProfileRoutine>> getProfileRoutines() async {
+    final db = await database;
+    final result = await db.query('ProfileRoutines');
+    return result.map((map) => ProfileRoutine.fromMap(map)).toList();
+  }
+
+  Future<void> insertHistory(History history) async {
+    final db = await database;
+    debugPrint('Inserting history: ${history.toMap()}');
+    await db.insert('History', history.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+  }
+
+  Future<List<History>> getHistoryByRoutineId(int routineId) async {
+    final db = await database;
+    final result = await db.query('History', where: 'routineId = ?', whereArgs: [routineId]);
+    return result.map((map) => History.fromMap(map)).toList();
+  }
+
+  Future<int> insertProfile(Profile profile) async {
+    final db = await database;
+    return await db.insert('Profiles', profile.toMap());
+  }
+
+  Future<int> updateProfile(Profile profile) async {
+    final db = await database;
+    return await db.update('Profiles', profile.toMap(), where: 'id = ?', whereArgs: [profile.id]);
+  }
+
+  Future<int> deleteProfile(int id) async {
+    final db = await database;
+    return await db.delete('Profiles', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> insertProfileRoutine(ProfileRoutine profileRoutine) async {
+    final db = await database;
+    return await db.insert('ProfileRoutines', profileRoutine.toMap());
+  }
+
+  Future<int> updateProfileRoutine(ProfileRoutine profileRoutine) async {
+    final db = await database;
+    return await db.update('ProfileRoutines', profileRoutine.toMap(), where: 'id = ?', whereArgs: [profileRoutine.id]);
+  }
+
+  Future<int> deleteProfileRoutine(int id) async {
+    final db = await database;
+    return await db.delete('ProfileRoutines', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<List<Routine>> getSelectedRoutinesForProfile(int profileId) async {
+    final db = await database;
+    final result = await db.rawQuery('''
+      SELECT Routines.*
+      FROM Routines
+      INNER JOIN ProfileRoutines ON Routines.id = ProfileRoutines.routineId
+      WHERE ProfileRoutines.profileId = ?
+    ''', [profileId]);
+
+    return result.map((map) => Routine.fromMap(map)).toList();
+  }
+
+  Future<void> saveRoutines(List<Routine> routines) async {
+    final db = await database;
+    for (var routine in routines) {
+      await db.insert('Routines', routine.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    }
+  }
+
+  Future<List<Routine>> loadRoutines() async {
+    final db = await database;
+    final result = await db.query('Routines');
+    return result.map((map) => Routine.fromMap(map)).toList();
+  }
+
+  // Nuevo método para obtener todo el historial
+  Future<List<History>> getAllHistory() async {
+    final db = await database;
+    final result = await db.query('History');
+    debugPrint('Fetched ${result.length} history records from database');
+    return result.map((map) => History.fromMap(map)).toList();
   }
 }
